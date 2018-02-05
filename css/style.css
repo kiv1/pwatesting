@@ -1,0 +1,342 @@
+*{        margin:0; padding:0;
+         font-family: 'Montserrat', sans-serif;
+         font-size: 20px;
+         box-sizing: border-box; 
+         
+         
+         
+        
+        
+        }
+        
+         
+
+        
+        body { background: linear-gradient(53deg, #d24a58, #2a2840, #a52f3b);
+                      background-size: 600% 600%;
+
+                    -webkit-animation: AnimationName 30s ease infinite;
+                    -moz-animation: AnimationName 30s ease infinite;
+                    animation: AnimationName 30s ease infinite;
+
+                    @-webkit-keyframes AnimationName {
+                        0%{background-position:70% 0%}
+                        50%{background-position:31% 100%}
+                        100%{background-position:70% 0%}
+                    }
+                    @-moz-keyframes AnimationName {
+                        0%{background-position:70% 0%}
+                        50%{background-position:31% 100%}
+                        100%{background-position:70% 0%}
+                    }
+                    @keyframes AnimationName { 
+                        0%{background-position:70% 0%}
+                        50%{background-position:31% 100%}
+                        100%{background-position:70% 0%}
+                        
+                        
+                        
+                       
+                    }
+            
+           
+            
+        }
+        
+ 
+
+          p {font-family: 'Lobster', cursive;
+             color: whitesmoke;}
+       
+    
+        @media screen and (min-width: 801px) {  
+  
+     
+                 header{
+
+                            width: 50%;
+                            padding: 12px;
+                             
+                             margin: 10px auto;
+                            box-sizing:border-box;
+ 
+                     }
+            
+        
+
+                 main{
+                            width:800px;
+                            box-sizing:border-box;
+                            margin:10px auto;
+                            overflow:auto;
+                            
+                            
+                        }
+
+            h1   {text-align: center;}
+            
+              p {text-align: center;}
+
+h2 { 
+     
+     text-align: center;
+     margin-bottom: 20px;
+      color: rgba(255,255,255,0.8);
+    
+}
+            
+            
+            
+            input { display: block;
+        padding: 10px;
+        width: 100%;
+        margin: 30px 0;
+        font-size: 20px;
+        box-sizing:border-box;
+         
+    
+}
+            input[type="submit"] { background: linear-gradient(169deg, #d24a58, #2a2840, #a52f3b, #d24a58);
+background-size: 800% 800%;
+
+-webkit-animation: AnimationName 30s ease infinite;
+-moz-animation: AnimationName 30s ease infinite;
+animation: AnimationName 30s ease infinite;
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:70% 0%}
+    50%{background-position:31% 100%}
+    100%{background-position:70% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:70% 0%}
+    50%{background-position:31% 100%}
+    100%{background-position:70% 0%}
+}
+@keyframes AnimationName { 
+    0%{background-position:70% 0%}
+    50%{background-position:31% 100%}
+    100%{background-position:70% 0%}
+}
+    
+    
+    
+    
+    border: 0;
+    color: white;
+    opacity: 0.7;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-bottom: 0;
+
+    
+}
+
+input[type="submit"]:hover {
+    
+    opacity: 1;
+    
+    
+}
+
+
+input[type="submit"]:active {
+    
+    transform: scale(0.95);
+    
+    
+}
+
+            
+
+                #izquierda { 
+
+                             width: 100%;
+                             height: 100%;
+                              
+                             box-sizing: border-box;
+                             padding: 20px;
+                    
+                  
+
+                    }
+
+                        #derecha { 
+
+                             float: left;
+                             width: 50%;
+                             height: 600px;
+                          
+                             box-sizing: border-box;
+                            padding: 20px;
+                            background-color: rgba(42,40,64,0.5);
+                              
+
+                    }
+
+
+
+                   footer {
+
+                     width: 800px;
+                     padding: 20px;
+                     box-sizing:border-box;
+                      
+                     margin: 10px auto;
+
+                      
+
+
+
+                     }
+
+                  }
+
+                    @media screen and (max-width: 800px) {
+
+
+                 header{
+
+                             width: 100%;
+                             padding: 2em;
+                              
+                             margin: 1em auto;
+                             box-sizing: border-box;
+
+                     }
+                        
+                        
+                          main{
+                            width: 100%;
+                            box-sizing:border-box;
+                            margin: 1em auto;
+                            overflow:auto;
+                        }
+
+                        
+            h1 {text-align: center;}
+            
+              p {text-align: center;}
+
+ 
+                        
+                        h2 { 
+     
+     text-align: center;
+     margin-bottom: 20px;
+    color: rgba(255,255,255,0.5);
+ 
+
+    
+}
+            
+            input { display: block;
+        padding: 10px;
+        width: 100%;
+        margin: 30px 0;
+        font-size: 20px;
+        box-sizing:border-box;
+         
+    
+}
+            input[type="submit"] { background: linear-gradient(53deg, #d24a58, #2a2840, #a52f3b);
+background-size: 600% 600%;
+
+-webkit-animation: AnimationName 30s ease infinite;
+-moz-animation: AnimationName 30s ease infinite;
+animation: AnimationName 30s ease infinite;
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:70% 0%}
+    50%{background-position:31% 100%}
+    100%{background-position:70% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:70% 0%}
+    50%{background-position:31% 100%}
+    100%{background-position:70% 0%}
+}
+@keyframes AnimationName { 
+    0%{background-position:70% 0%}
+    50%{background-position:31% 100%}
+    100%{background-position:70% 0%}
+}
+    
+    
+    
+    
+    border: 0;
+    color: white;
+    opacity: 0.8;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-bottom: 0;
+
+    
+}
+
+input[type="submit"]:hover {
+    
+    opacity: 1;
+    
+    
+}
+
+
+input[type="submit"]:active {
+    
+    transform: scale(0.95);
+    
+    
+}
+
+                        
+                        
+                        
+                        
+                        
+                         #izquierda { 
+
+                             float: none;
+                             width: 100%;
+                             height: 50%;
+                              
+                             box-sizing: border-box;
+                             padding: 2em;
+
+
+
+                    }
+
+                         #derecha { 
+
+                             float: none;
+                             width: 100%;
+                             height: 50%;
+                              
+                             box-sizing: border-box;
+                            padding: 2em;
+                             background-color: rgba(42,40,64,0.5);
+
+                    }
+
+
+
+                   footer {
+
+                             width: 100%;
+                             padding: 2em;
+                             margin: 1em auto;
+                             box-sizing: border-box;
+                             
+
+
+
+                     }
+
+
+
+
+
+
+                    }
