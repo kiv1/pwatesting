@@ -28,6 +28,7 @@ function sendTestForm(){
     }
   };
   navigator.serviceWorker.controller.postMessage(data);
+  console.log(run);
 }
 
 function getFormData($form){
