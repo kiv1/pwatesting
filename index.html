@@ -30,7 +30,7 @@
 		<section id="izquierda">
 	    
 	    
-		<form onsubmit="run()">     
+		<form action="post" id="TestForm">     
 		    <h2> Login</h2>
 		    <input type="text" name="Username" placeholder="&#128273; Username" name="Username" required="required">
 		    <input type="password" name="Password" placeholder="&#128273; Password"  required="required">
@@ -45,7 +45,13 @@
 	 
 </body>
 <script type="text/javascript">
-	function run(){
+
+	$('#TestForm').submit(function () {
+		sendContactForm();
+		return false;
+	});
+
+	function sendTestForm(){
 		var $form = $("form");
 		var data = getFormData($form);
 		console.log(data);
