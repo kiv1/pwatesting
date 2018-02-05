@@ -10,15 +10,21 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-$('#TestForm').submit(function () {
-  sendTestForm();
-  return false;
+$('#TestForm').addEventListener('click', function() {
+    var $form = $("form");
+    var data = getFormData($form);
+
+    sendTestForm({
+      command: 'add',
+      data: data
+    }).then(function() {
+      // If the promise resolves, just display a success message.
+      ChromeSamples.setStatus('Added to cache.');
+    }).catch(ChromeSamples.setStatus); // If the promise rejects, show the error.
 });
 
-function sendTestForm(){
-  var $form = $("form");
-  var data = getFormData($form);
-  console.log(data);
+function sendTestForm(message){
+  console.log(message.data);
   var messageChannel = new MessageChannel();
   messageChannel.port1.onmessage = function(event) {
     if (event.data.error) {
@@ -27,20 +33,7 @@ function sendTestForm(){
       resolve(event.data);
     }
   };
-
-  navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-    // Let's see if you have a subscription already
-    return serviceWorkerRegistration.pushManager.getSubscription();
-  })
-  .then(function(subscription) {
-    if (!subscription) {
-      alert("No subscription");
-    }
-    // You have subscription.
-    // Send data to service worker
-    navigator.serviceWorker.controller.postMessage(data);
-
-  })
+  navigator.serviceWorker.controller.postMessage(message.data);
 }
 
 function getFormData($form){
