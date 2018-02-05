@@ -10,6 +10,18 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+$('#sync').addEventListener('click', function() {
+    sendTestForm({command: 'keys'})
+      .then(function(data) {
+      
+        // Add each cached URL to the list, one by one.
+        data.data.forEach(function(url) {
+          console.log(url);
+        });
+      }).catch(ChromeSamples.setStatus); // If the promise rejects, show the error.
+  });
+
+
 $('#TestForm').addEventListener('click', function() {
     var $form = $("form");
     var data = getFormData($form);
@@ -33,7 +45,7 @@ function sendTestForm(message){
       resolve(event.data);
     }
   };
-  navigator.serviceWorker.controller.postMessage(message.data);
+  navigator.serviceWorker.controller.postMessage(message,[messageChannel.port2]);
 }
 
 function getFormData($form){
