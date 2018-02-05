@@ -9,3 +9,26 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
+
+$('#TestForm').submit(function () {
+  sendTestForm();
+  return false;
+});
+
+function sendTestForm(){
+  var $form = $("form");
+  var data = getFormData($form);
+  console.log(data);
+  navigator.serviceWorker.controller.postMessage(data);
+}
+
+function getFormData($form){
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function(n, i){
+        indexed_array[n['name']] = n['value'];
+    });
+
+    return indexed_array;
+}
