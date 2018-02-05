@@ -34,7 +34,7 @@ function sendTestForm(){
   })
   .then(function(subscription) {
     if (!subscription) {
-      // You do not have subscription
+      alert("No subscription");
     }
     // You have subscription.
     // Send data to service worker
