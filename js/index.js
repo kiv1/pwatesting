@@ -1,3 +1,8 @@
+navigator.serviceWorker.addEventListener('message', function(event) {
+    ChromeSamples.setStatus(event.data);
+});
+
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('/sw.js').then(function(registration) {
