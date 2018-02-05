@@ -1,3 +1,4 @@
+//https://stackoverflow.com/questions/30256390/navigator-serviceworker-controller-is-always-null
 var cacheName = 'pwatesting';
 var filesToCache = [ '/index.html',
   '/js/index.js',
