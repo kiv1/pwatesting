@@ -19,6 +19,14 @@ function sendTestForm(){
   var $form = $("form");
   var data = getFormData($form);
   console.log(data);
+  var messageChannel = new MessageChannel();
+  messageChannel.port1.onmessage = function(event) {
+    if (event.data.error) {
+      reject(event.data.error);
+    } else {
+      resolve(event.data);
+    }
+  };
   navigator.serviceWorker.controller.postMessage(data);
 }
 
