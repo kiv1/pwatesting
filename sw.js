@@ -19,5 +19,5 @@ self.addEventListener('activate', function(e) {
 });
 
 self.addEventListener('message', function(event) {
-    alert(event.data.alert);
+    console.log(event.data.alert);
 });
