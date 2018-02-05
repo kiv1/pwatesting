@@ -27,8 +27,20 @@ function sendTestForm(){
       resolve(event.data);
     }
   };
-  navigator.serviceWorker.controller.postMessage(data);
-  console.log(run);
+
+  navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+    // Let's see if you have a subscription already
+    return serviceWorkerRegistration.pushManager.getSubscription();
+  })
+  .then(function(subscription) {
+    if (!subscription) {
+      // You do not have subscription
+    }
+    // You have subscription.
+    // Send data to service worker
+    navigator.serviceWorker.controller.postMessage(data);
+
+  })
 }
 
 function getFormData($form){
