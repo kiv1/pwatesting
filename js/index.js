@@ -1,3 +1,5 @@
+//Service worker stuff
+
 navigator.serviceWorker.addEventListener('message', function(event) {
     ChromeSamples.setStatus(event.data);
 });
@@ -14,6 +16,34 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
+
+
+if ('serviceWorker' in navigator) {
+  // Set up a listener for messages posted from the service worker.
+  // The service worker is set to post a message to all its clients once it's run its activation
+  // handler and taken control of the page, so you should see this message event fire once.
+  // You can force it to fire again by visiting this page in an Incognito window.
+  navigator.serviceWorker.addEventListener('message', function(event) {
+    ChromeSamples.setStatus(event.data);
+  });
+
+  navigator.serviceWorker.register('service-worker.js')
+    // Wait until the service worker is active.
+    .then(function() {
+      return navigator.serviceWorker.ready;
+    })
+    // ...and then show the interface for the commands once it's ready.
+    .then(showCommands)
+    .catch(function(error) {
+      // Something went wrong during registration. The service-worker.js file
+      // might be unavailable or contain a syntax error.
+      ChromeSamples.setStatus(error);
+    });
+} else {
+  ChromeSamples.setStatus('This browser does not support service workers.');
+}
+//End of service worker stuff
+
 
 document.querySelector('#Login').addEventListener('click', function() {
     var $form = $("form");
@@ -64,3 +94,5 @@ function getFormData($form){
 
     return indexed_array;
 }
+
+

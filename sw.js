@@ -17,7 +17,3 @@ self.addEventListener('install', function(e) {
 self.addEventListener('activate', function(e) {
   console.log('[ServiceWorker] Activate');
 });
-
-self.addEventListener('message', function(event) {
-    console.log(event.data.alert);
-});

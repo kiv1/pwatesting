@@ -96,7 +96,20 @@ h2 {
          
     
 }
-            input[type="submit"] { background: linear-gradient(169deg, #d24a58, #2a2840, #a52f3b, #d24a58);
+
+button{
+    width: 100%; 
+    border: 0;
+    height: 40px;
+    color: white;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+button { 
+background: linear-gradient(169deg, #d24a58, #2a2840, #a52f3b, #d24a58);
 background-size: 800% 800%;
 
 -webkit-animation: AnimationName 30s ease infinite;
@@ -121,18 +134,11 @@ animation: AnimationName 30s ease infinite;
     
     
     
-    
-    border: 0;
-    color: white;
-    opacity: 0.7;
-    cursor: pointer;
-    border-radius: 20px;
-    margin-bottom: 0;
 
-    
+
 }
 
-input[type="submit"]:hover {
+button:hover {
     
     opacity: 1;
     
@@ -140,7 +146,7 @@ input[type="submit"]:hover {
 }
 
 
-input[type="submit"]:active {
+button:active {
     
     transform: scale(0.95);
     
@@ -239,7 +245,18 @@ input[type="submit"]:active {
          
     
 }
-            input[type="submit"] { background: linear-gradient(53deg, #d24a58, #2a2840, #a52f3b);
+
+button{
+    width: 100%; 
+    border: 0;
+    height: 40px;
+    color: white;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+button { background: linear-gradient(53deg, #d24a58, #2a2840, #a52f3b);
 background-size: 600% 600%;
 
 -webkit-animation: AnimationName 30s ease infinite;
@@ -261,21 +278,10 @@ animation: AnimationName 30s ease infinite;
     50%{background-position:31% 100%}
     100%{background-position:70% 0%}
 }
-    
-    
-    
-    
-    border: 0;
-    color: white;
-    opacity: 0.8;
-    cursor: pointer;
-    border-radius: 20px;
-    margin-bottom: 0;
 
     
 }
-
-input[type="submit"]:hover {
+button:hover {
     
     opacity: 1;
     
@@ -283,7 +289,7 @@ input[type="submit"]:hover {
 }
 
 
-input[type="submit"]:active {
+button:active {
     
     transform: scale(0.95);
     
