@@ -75,7 +75,7 @@ document.querySelector('#sync').addEventListener('click', function() {
       .then(function(data) {
       
         data.urls.forEach(function(url) {
-          console.log(url);
+          console.log(url.JSON);
         });
       }).catch(console.log("err")); // If the promise rejects, show the error.
 });
