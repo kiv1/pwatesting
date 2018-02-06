@@ -130,7 +130,11 @@ function getAllData(){
     db.transaction("DataStore", 'readonly');
     var customerObjectStore = db.transaction("DataStore", 'readonly');  
     var store = customerObjectStore.objectStore('DataStore');
-    return store.getAll();
+    var datas =  store.getAll();
+
+    datas.onsuccess = function(){
+      return datas.result;
+    }
   }
 }
 
