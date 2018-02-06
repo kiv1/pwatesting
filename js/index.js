@@ -53,7 +53,6 @@ function sendMessage(message) {
 
 function startDoing(){
   $('#loading').show();
-  $('form :input').val('');
 }
 
 document.querySelector('#Login').addEventListener('click', function() {
@@ -62,6 +61,8 @@ document.querySelector('#Login').addEventListener('click', function() {
   var $form = $("form");
   var data = getFormData($form);
   var string  = JSON.stringify(data);
+  $('form :input').val('');
+
   console.log(string);
   sendMessage({
     command: 'add',
