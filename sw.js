@@ -139,7 +139,7 @@ function clearData(events){
   }
 }
 
-function deleteEvent(events){
+function deleteEvent(events, key){
 
   var request = indexedDB.open(dbName, 2);
 
@@ -153,7 +153,7 @@ function deleteEvent(events){
     var db = event.target.result;
     var customerObject = db.transaction("DataStore", "readwrite");
     var store = customerObject.objectStore("DataStore")
-    var datas =  store.delete(event.data.key);
+    var datas =  store.delete(key);
 
     datas.onsuccess = function(){
       return events.ports[0].postMessage({
@@ -230,7 +230,7 @@ self.addEventListener('message', function(event) {
         return clearData(event);
 
       case 'delete':
-        return deleteEvent(event);
+        return deleteEvent(event, event.data.key);
 
       default:
         // This will be handled by the outer .catch().

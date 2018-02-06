@@ -76,6 +76,7 @@ document.querySelector('#sync').addEventListener('click', function() {
       
         data.urls.forEach(function(url) {
           console.log(url.JSON);
+          var key = url.ID;
           sendMessage({
               command: 'add',
               url: url.JSON
@@ -85,7 +86,7 @@ document.querySelector('#sync').addEventListener('click', function() {
                 console.log('Post success');
                 sendMessage({
                   command: 'delete',
-                  key: url.ID
+                  key: key
                 }).then(function(events) {
                   // If the promise resolves, just display a success message.
                   if(events.error == null){
