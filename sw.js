@@ -3,7 +3,8 @@ var cacheName = 'pwatesting';
 var filesToCache = [ '/index.html',
   '/js/index.js',
   '/css/style.css',
-  '/image/giphy.gif'];
+  '/image/giphy.gif',
+  '/image/icon.png'];
 
 //var CACHE_VERSION = 1;
 //var CURRENT_CACHES = {
