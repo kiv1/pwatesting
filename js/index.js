@@ -48,9 +48,9 @@ function sendTestForm(message){
   var messageChannel = new MessageChannel();
   messageChannel.port1.onmessage = function(event) {
     if (event.data.error) {
-      reject(event.data.error);
+      console.log(event.data.error);
     } else {
-      resolve(event.data);
+      console.log(event.data);
     }
   };
   navigator.serviceWorker.controller.postMessage(message,[messageChannel.port2]);
