@@ -65,7 +65,7 @@ document.querySelector('#Login').addEventListener('click', function() {
 });
 
 document.querySelector('#sync').addEventListener('click', function() {
-    sendTestForm({command: 'keys'})
+    sendMessage({command: 'keys'})
       .then(function(data) {
       
         data.urls.forEach(function(url) {
