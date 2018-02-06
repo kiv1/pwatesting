@@ -73,11 +73,12 @@ document.querySelector('#Login').addEventListener('click', function() {
       $('#loading').hide();
 
     }
-  }).catch(
-    console.log('Post fail and stored in DB')        
+  }).catch(function(){
+    console.log('Post fail and stored in DB');       
     $('#loading').hide();
-  ); // If the promise rejects, show the error.
+  }); // If the promise rejects, show the error.
 });
+
 function stopLoading(count, total){
   $('#loading').hide();
 }
@@ -110,11 +111,11 @@ document.querySelector('#sync').addEventListener('click', function() {
                     count++;
                     stopLoading(count, data.urls.length);
                   }
-                }).catch(
+                }).catch(function(){
                     console.log('Post fail and stored in DB')
                     count++;
                     stopLoading(count, data.urls.length);
-                  );
+                  });
             });
           }else{
             console.log('Delete fail and stored in DB');
