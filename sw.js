@@ -115,7 +115,7 @@ function addData(obj){
   }
 }
 
-function getAll(){
+function getAllData(){
 
 
   var request = indexedDB.open(dbName, 2);
@@ -141,23 +141,11 @@ self.addEventListener('message', function(event) {
       // This command returns a list of the URLs corresponding to the Request objects
       // that serve as keys for the current cache.
       case 'keys':
-        /*return cache.keys().then(function(requests) {
-          var urls = requests.map(function(request) {
-            return request.url;
-          });
-
-          return urls;
-        //}).then(function(urls) {
-          // event.ports[0] corresponds to the MessagePort that was transferred as part of the controlled page's
-          // call to controller.postMessage(). Therefore, event.ports[0].postMessage() will trigger the onmessage
-          // handler from the controlled page.
-          // It's up to you how to structure the messages that you send back; this is just one example.
+        return
           event.ports[0].postMessage({
             error: null,
-            urls: urls
-          });*/
-        //});
-        return getAll();
+            urls: getAllData()
+          });
       // This command adds a new request/response pair to the cache.
       case 'add':
         // If event.data.url isn't a valid URL, new Request() will throw a TypeError which will be handled
@@ -179,7 +167,7 @@ self.addEventListener('message', function(event) {
           var id = uuidv4();
           var x = {JSON:event.data.url, ID: id};
           addData(x);
-          return event.ports[0].postMessage({
+          event.ports[0].postMessage({
             error: error.toString()
           });
         });

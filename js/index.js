@@ -1,5 +1,4 @@
 //Service worker stuff
-var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 
 if ('serviceWorker' in navigator) {
   // Set up a listener for messages posted from the service worker.
@@ -14,7 +13,7 @@ if ('serviceWorker' in navigator) {
     // Wait until the service worker is active.
     .then(function() {
       return navigator.serviceWorker.ready;
-      
+
     })
     // ...and then show the interface for the commands once it's ready.
     .then()
@@ -61,9 +60,13 @@ document.querySelector('#Login').addEventListener('click', function() {
   sendMessage({
     command: 'add',
     url: string
-  }).then(function() {
+  }).then(function(events) {
     // If the promise resolves, just display a success message.
-    console.log('Added to cache.');
+    if(ex=vents.error == null){
+      console.log('Post success');
+    }else{
+      console.log('Post fail and stored in DB');
+    }
   }).catch(console.log('error')); // If the promise rejects, show the error.
 });
 
