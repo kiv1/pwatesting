@@ -87,6 +87,13 @@ function createDB(){
     // so we can't use a unique index.
     objectStore.createIndex("JSON", "JSON", { unique: false });
 
+    // Use transaction oncomplete to make sure the objectStore creation is 
+    // finished before adding data into it.
+    objectStore.transaction.oncomplete = function(event) {
+      // Store values in the newly created objectStore.
+      var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("DataStore");
+      storageStuff = db;
+    };
   }
 }
 
@@ -103,8 +110,8 @@ function addData(obj){
 
     var db = event.target.result;
     var customerObject = db.transaction("DataStore", "readwrite");
-    var store = customerObject.objectStore("data")
-    store.add(obj);
+    var store = customerObject.objectStore("DataStore")
+    customerObjectStore.add(obj);
   }
 }
 
@@ -122,7 +129,7 @@ function getAll(){
     var db = event.target.result;
     db.transaction("DataStore", 'readonly');
     var customerObjectStore = db.transaction("DataStore", 'readonly');  
-    var store = customerObjectStore.objectStore('data');
+    var store = customerObjectStore.objectStore('DataStore');
     return store.getAll();
   }
 }
