@@ -137,7 +137,7 @@ function getAll(){
 
 self.addEventListener('message', function(event) {
   console.log('Handling message event:', event);
-  var p = caches.open(CURRENT_CACHES['post-message']).then(function(cache) {
+  //var p = caches.open(CURRENT_CACHES['post-message']).then(function(cache) {
     switch (event.data.command) {
       // This command returns a list of the URLs corresponding to the Request objects
       // that serve as keys for the current cache.
@@ -198,14 +198,14 @@ self.addEventListener('message', function(event) {
         // This will be handled by the outer .catch().
         throw Error('Unknown command: ' + event.data.command);
     }
-  }).catch(function(error) {
+/*  }).catch(function(error) {
     // If the promise rejects, handle it by returning a standardized error message to the controlled page.
     console.log('Message handling failed:', error);
 
     event.ports[0].postMessage({
       error: error.toString()
     });
-  });
+  });*/
 
   // Beginning in Chrome 51, event is an ExtendableMessageEvent, which supports
   // the waitUntil() method for extending the lifetime of the event handler
