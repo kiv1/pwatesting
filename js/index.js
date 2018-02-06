@@ -85,7 +85,7 @@ document.querySelector('#sync').addEventListener('click', function() {
                 console.log('Post success');
                 sendMessage({
                   command: 'delete',
-                  key: url.Key
+                  key: url.ID
                 }).then(function(events) {
                   // If the promise resolves, just display a success message.
                   if(events.error == null){
