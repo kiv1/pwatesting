@@ -67,7 +67,7 @@ document.querySelector('#Login').addEventListener('click', function() {
     }else{
       console.log('Post fail and stored in DB');
     }
-  }).catch(console.log('error')); // If the promise rejects, show the error.
+  }).catch(console.log('Post fail and stored in DB')); // If the promise rejects, show the error.
 });
 
 document.querySelector('#sync').addEventListener('click', function() {

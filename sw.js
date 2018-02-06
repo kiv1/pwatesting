@@ -141,10 +141,11 @@ self.addEventListener('message', function(event) {
       // This command returns a list of the URLs corresponding to the Request objects
       // that serve as keys for the current cache.
       case 'keys':
+        var datas = getAllData();
         return
           event.ports[0].postMessage({
             error: null,
-            urls: getAllData()
+            urls: datas
           });
       // This command adds a new request/response pair to the cache.
       case 'add':
