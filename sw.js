@@ -77,7 +77,7 @@ self.addEventListener('message', function(event) {
             return request.data;
           });
 
-          return urls.sort();
+          return urls;
         }).then(function(urls) {
           // event.ports[0] corresponds to the MessagePort that was transferred as part of the controlled page's
           // call to controller.postMessage(). Therefore, event.ports[0].postMessage() will trigger the onmessage
@@ -99,7 +99,7 @@ self.addEventListener('message', function(event) {
         return fetch(request).then(function(response) {
           console.log(event.data.data);
           console.log(response);
-          return cache.put(event.data.data, response);
+          return cache.put(JSON.stringify(event.data.data), response);
         }).then(function() {
           event.ports[0].postMessage({
             error: null
