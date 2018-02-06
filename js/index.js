@@ -79,7 +79,7 @@ document.querySelector('#Login').addEventListener('click', function() {
   ); // If the promise rejects, show the error.
 });
 function stopLoading(count, total){
-
+  $('#loading').hide();
 }
 
 document.querySelector('#sync').addEventListener('click', function() {
