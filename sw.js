@@ -4,6 +4,13 @@ var filesToCache = [ '/index.html',
   '/js/index.js',
   '/css/style.css'];
 
+
+var CACHE_VERSION = 1;
+var CURRENT_CACHES = {
+  'post-message': 'post-message-cache-v' + CACHE_VERSION
+};
+
+
 self.addEventListener('install', function(e) {
   console.log('[ServiceWorker] Install');
   e.waitUntil(

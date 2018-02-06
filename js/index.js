@@ -1,7 +1,7 @@
 //Service worker stuff
 
 navigator.serviceWorker.addEventListener('message', function(event) {
-    ChromeSamples.setStatus(event.data);
+    console.log(event.data);
 });
 
 
@@ -27,10 +27,7 @@ document.querySelector('#Login').addEventListener('click', function() {
     sendTestForm({
       command: 'add',
       data: data
-    }).then(function() {
-      // If the promise resolves, just display a success message.
-      ChromeSamples.setStatus('Added to cache.');
-    }).catch(ChromeSamples.setStatus); // If the promise rejects, show the error.
+    }) // If the promise rejects, show the error.
 });
 
 
@@ -42,7 +39,7 @@ document.querySelector('#sync').addEventListener('click', function() {
         data.data.forEach(function(url) {
           console.log(url);
         });
-      }).catch(ChromeSamples.setStatus); // If the promise rejects, show the error.
+      }) // If the promise rejects, show the error.
 });
 
 
