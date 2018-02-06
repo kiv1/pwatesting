@@ -1,4 +1,5 @@
 //Service worker stuff
+var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 
 if ('serviceWorker' in navigator) {
   // Set up a listener for messages posted from the service worker.
@@ -13,6 +14,7 @@ if ('serviceWorker' in navigator) {
     // Wait until the service worker is active.
     .then(function() {
       return navigator.serviceWorker.ready;
+      
     })
     // ...and then show the interface for the commands once it's ready.
     .then()

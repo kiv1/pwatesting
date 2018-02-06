@@ -4,9 +4,6 @@ var filesToCache = [ '/index.html',
   '/js/index.js',
   '/css/style.css'];
 
-var indexedDB = indexedDB || mozIndexedDB || webkitIndexedDB || msIndexedDB;
-
-
 //var CACHE_VERSION = 1;
 //var CURRENT_CACHES = {
 //  'post-message': 'post-message-cache-v' + CACHE_VERSION
