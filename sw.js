@@ -68,7 +68,7 @@ self.addEventListener('activate', function(event) {
   //);
 });
 
-
+var storageStuff;
 function createDB(){
   var request = indexedDB.open(dbName, 2);
   request.onerror = function(event) {
@@ -92,7 +92,7 @@ function createDB(){
     objectStore.transaction.oncomplete = function(event) {
       // Store values in the newly created objectStore.
       var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("data");
-
+      storageStuff = db;
     };
   }
 }
@@ -100,6 +100,7 @@ function createDB(){
 function addData(obj){
 
   //var request = indexedDB.open(dbName, 2);
+  var customerObjectStore = storageStuff.transaction("DataStore", "readwrite").objectStore("data");
   customerObjectStore.add(obj);
 
   /*request.onerror = function(event) {
@@ -116,6 +117,7 @@ function addData(obj){
 
 function getAll(){
 
+  var customerObjectStore = storageStuff.transaction("DataStore", 'readonly');  
   var store = customerObjectStore.objectStore('data');
   return store.getAll();
   /*var request = indexedDB.open(dbName, 2);
