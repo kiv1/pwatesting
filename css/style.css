@@ -59,7 +59,7 @@
                             width: 50%;
                             padding: 12px;
                              
-                             margin: 10px auto;
+                             margin: 8px auto;
                             box-sizing:border-box;
  
                      }
@@ -105,7 +105,6 @@ button{
     height: 40px;
     color: white;
     border-radius: 20px;
-    margin-bottom: 20px;
     opacity: 0.7;
     cursor: pointer;
 }
@@ -206,9 +205,9 @@ button:active {
                  header{
 
                              width: 100%;
-                             padding: 2em;
+                             padding: 0.4em;
                               
-                             margin: 1em auto;
+                             margin: 0.4em auto;
                              box-sizing: border-box;
 
                      }
@@ -254,7 +253,6 @@ button{
     height: 40px;
     color: white;
     border-radius: 20px;
-    margin-bottom: 20px;
     opacity: 0.7;
     cursor: pointer;
 }
@@ -310,7 +308,7 @@ button:active {
                              height: 50%;
                               
                              box-sizing: border-box;
-                             padding: 2em;
+                             padding: 0.3em;
 
 
 
