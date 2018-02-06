@@ -84,8 +84,13 @@ document.querySelector('#Login').addEventListener('click', function() {
   }); // If the promise rejects, show the error.
 });
 
-function stopLoading(count, total){
-  $('#loading').hide();
+function stopLoading(scount,ecount,total){
+  if((scount+ecount) == total){
+    if(ecount >0){
+      showMessage(ecount+'/'+total+' had problems. Please sync again.')
+    }
+    $('#loading').hide();
+  }
 }
 
 function showMessage(msg){
@@ -94,7 +99,9 @@ function showMessage(msg){
 
 document.querySelector('#sync').addEventListener('click', function() {
     startDoing();
-    var count = 0;
+    var successCount = 0;
+    var errorCount = 0;
+
     sendMessage({command: 'keys'})
       .then(function(data) {
         sendMessage({
@@ -114,17 +121,17 @@ document.querySelector('#sync').addEventListener('click', function() {
                   // If the promise resolves, just display a success message.
                   if(events.error == null){
                     showMessage('Post success');
-                    count++;
-                    stopLoading(count, data.urls.length);
+                    successCount++;
+                    stopLoading(successCount, errorCount, data.urls.length);
                   }else{
                     showMessage('Post fail and stored in DB');
-                    count++;
-                    stopLoading(count, data.urls.length);
+                    errorCount++;
+                    stopLoading(successCount, errorCount, data.urls.length);
                   }
                 }).catch(function(){
                     showMessage('Post fail and stored in DB')
-                    count++;
-                    stopLoading(count, data.urls.length);
+                    errorCount++;
+                    stopLoading(successCount, errorCount, data.urls.length);
                   });
               });
             }else{
