@@ -53,6 +53,8 @@ function sendMessage(message) {
 
 
 document.querySelector('#Login').addEventListener('click', function() {
+  $('#loading').show();
+
   var $form = $("form");
   var data = getFormData($form);
   var string  = JSON.stringify(data);
@@ -64,42 +66,61 @@ document.querySelector('#Login').addEventListener('click', function() {
     // If the promise resolves, just display a success message.
     if(events.error == null){
       console.log('Post success');
+      $('#loading').hide();
+
     }else{
       console.log('Post fail and stored in DB');
+      $('#loading').hide();
+
     }
-  }).catch(console.log('Post fail and stored in DB')); // If the promise rejects, show the error.
+  }).catch(
+    console.log('Post fail and stored in DB')        
+    $('#loading').hide();
+  ); // If the promise rejects, show the error.
 });
+function stopLoading(count, total){
+
+}
 
 document.querySelector('#sync').addEventListener('click', function() {
+    $('#loading').show();
+    var count = 0;
     sendMessage({command: 'keys'})
       .then(function(data) {
-      
-        data.urls.forEach(function(url) {
-          console.log(url.JSON);
-          var key = url.ID;
-          sendMessage({
-              command: 'add',
-              url: url.JSON
-            }).then(function(events) {
-              // If the promise resolves, just display a success message.
-              if(events.error == null){
-                console.log('Post success');
-                sendMessage({
-                  command: 'delete',
-                  key: key
+        sendMessage({
+          command: 'clear'
+        }).then(function(events) {
+          // If the promise resolves, just display a success message.
+          if(events.error == null){
+            console.log('Delete success');
+            data.urls.forEach(function(url) {
+              console.log(url.JSON);
+              var key = url.ID;
+              sendMessage({
+                  command: 'add',
+                  url: url.JSON
                 }).then(function(events) {
                   // If the promise resolves, just display a success message.
                   if(events.error == null){
-                    console.log('Delete success');
+                    console.log('Post success');
+                    count++;
+                    stopLoading(count, data.urls.length);
                   }else{
-                    console.log('Delete fail and stored in DB');
+                    console.log('Post fail and stored in DB');
+                    count++;
+                    stopLoading(count, data.urls.length);
                   }
-                }).catch(console.log('Delete fail and stored in DB'));
-              }else{
-                console.log('Post fail and stored in DB');
-              }
-            }).catch(console.log('Post fail and stored in DB'));
-  });
+                }).catch(
+                    console.log('Post fail and stored in DB')
+                    count++;
+                    stopLoading(count, data.urls.length);
+                  );
+            });
+          }else{
+            console.log('Delete fail and stored in DB');
+          }
+        }).catch(console.log('Delete fail and stored in DB'));
+
       }).catch(console.log("err")); // If the promise rejects, show the error.
 });
 
