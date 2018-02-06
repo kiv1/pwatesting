@@ -144,8 +144,8 @@ self.addEventListener('message', function(event) {
       // that serve as keys for the current cache.
       case 'keys':
         var datas = getAllData();
-        return datas.onsuccess = function(){
-          event.ports[0].postMessage({
+        datas.onsuccess = function(){
+          return event.ports[0].postMessage({
             error: null,
             urls: datas.result
           });
