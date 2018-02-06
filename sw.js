@@ -99,7 +99,7 @@ function createDB(){
 
 function addData(obj){
 
-  //var request = indexedDB.open(dbName, 2);
+  var request = indexedDB.open(dbName, 2);
 
 
   request.onerror = function(event) {
