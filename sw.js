@@ -64,7 +64,6 @@ self.addEventListener('activate', function(event) {
   );
 });
 
-
 self.addEventListener('message', function(event) {
   console.log('Handling message event:', event);
   var p = caches.open(CURRENT_CACHES['post-message']).then(function(cache) {
@@ -74,10 +73,10 @@ self.addEventListener('message', function(event) {
       case 'keys':
         return cache.keys().then(function(requests) {
           var urls = requests.map(function(request) {
-            return request.data;
+            return request.url;
           });
 
-          return urls;
+          return urls.sort();
         }).then(function(urls) {
           // event.ports[0] corresponds to the MessagePort that was transferred as part of the controlled page's
           // call to controller.postMessage(). Therefore, event.ports[0].postMessage() will trigger the onmessage
@@ -97,9 +96,7 @@ self.addEventListener('message', function(event) {
         // CORS, and we don't have any way of knowing whether an arbitrary URL that a user entered supports CORS.
         var request = new Request(event.data.url, {mode: 'no-cors'});
         return fetch(request).then(function(response) {
-          console.log(event.data.data);
-          console.log(response);
-          return cache.put(JSON.stringify(event.data.data), response);
+          return cache.put(event.data.url, response);
         }).then(function() {
           event.ports[0].postMessage({
             error: null

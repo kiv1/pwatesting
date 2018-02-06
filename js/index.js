@@ -9,7 +9,7 @@ if ('serviceWorker' in navigator) {
     console.log(event.data);
   });
 
-  navigator.serviceWorker.register('service-worker.js')
+  navigator.serviceWorker.register('/sw.js')
     // Wait until the service worker is active.
     .then(function() {
       return navigator.serviceWorker.ready;
@@ -25,8 +25,11 @@ if ('serviceWorker' in navigator) {
   console.log('This browser does not support service workers.');
 }
 
-function sendTestForm(message){
-  console.log(message.data);
+function sendMessage(message) {
+  // This wraps the message posting/response in a promise, which will resolve if the response doesn't
+  // contain an error, and reject with the error if it does. If you'd prefer, it's possible to call
+  // controller.postMessage() and set up the onmessage handler independently of a promise, but this is
+  // a convenient wrapper.
   return new Promise(function(resolve, reject) {
     var messageChannel = new MessageChannel();
     messageChannel.port1.onmessage = function(event) {
@@ -45,30 +48,27 @@ function sendTestForm(message){
       [messageChannel.port2]);
   });
 }
-
 //End of service worker stuff
 
 
 document.querySelector('#Login').addEventListener('click', function() {
-    var $form = $("form");
-    var data = getFormData($form);
-
-    sendTestForm({
-      command: 'add',
-      data: data
-    }).then(function() {
-      // If the promise resolves, just display a success message.
-      console.log("Added to cache");
-    }).catch(console.log("err"));  // If the promise rejects, show the error.
+  var $form = $("form");
+  var data = getFormData($form);
+  var string  = JSON.stringify(data);
+  sendMessage({
+    command: 'add',
+    url: string
+  }).then(function() {
+    // If the promise resolves, just display a success message.
+    console.log('Added to cache.');
+  }).catch(console.log('error')); // If the promise rejects, show the error.
 });
-
 
 document.querySelector('#sync').addEventListener('click', function() {
     sendTestForm({command: 'keys'})
       .then(function(data) {
       
-        // Add each cached URL to the list, one by one.
-        data.data.forEach(function(url) {
+        data.urls.forEach(function(url) {
           console.log(url);
         });
       }).catch(console.log("err")); // If the promise rejects, show the error.
