@@ -55,6 +55,7 @@ document.querySelector('#Login').addEventListener('click', function() {
   var $form = $("form");
   var data = getFormData($form);
   var string  = JSON.stringify(data);
+  console.log(string);
   sendMessage({
     command: 'add',
     url: string
