@@ -94,10 +94,10 @@ self.addEventListener('message', function(event) {
         // by the outer .catch().
         // Hardcode {mode: 'no-cors} since the default for new Requests constructed from strings is to require
         // CORS, and we don't have any way of knowing whether an arbitrary URL that a user entered supports CORS.
-        var request = new Request('https://jsonplaceholder.typicode.com/posts', {method: 'POST', body: event.data.url});
+        var request = new Request('https://jsonplaceholder.typicode.com/posts/1', {method: 'POST', body: event.data.url});
 
         return fetch(request).then(function(response) {
-          return cache.put(event.data.url, response);
+          return response;
         }).then(function() {
           event.ports[0].postMessage({
             error: null
@@ -118,7 +118,8 @@ self.addEventListener('message', function(event) {
     }
   }).catch(function(error) {
     // If the promise rejects, handle it by returning a standardized error message to the controlled page.
-    console.error('Message handling failed:', error);
+    console.log('Message handling failed:', error);
+    return cache.put(event.data.url);
 
     event.ports[0].postMessage({
       error: error.toString()
