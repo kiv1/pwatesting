@@ -4,7 +4,7 @@ var filesToCache = [ '/index.html',
   '/js/index.js',
   '/css/style.css'];
 
-var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+var indexedDB = indexedDB || mozIndexedDB || webkitIndexedDB || msIndexedDB;
 
 
 //var CACHE_VERSION = 1;
@@ -39,40 +39,10 @@ self.addEventListener('activate', function(event) {
   //var expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
   //  return CURRENT_CACHES[key];
   //});
-    if (!indexedDB) {
-        window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
-    }else{
-
-    var request = indexedDB.open(dbName, 2);
-
-    request.onerror = function(event) {
-      // Handle errors.
-      console.log(event);
-    };
-    request.onupgradeneeded = function(event) {
-      var db = event.target.result;
-
-      // Create an objectStore to hold information about our customers. We're
-      // going to use "ssn" as our key path because it's guaranteed to be
-      // unique - or at least that's what I was told during the kickoff meeting.
-      var objectStore = db.createObjectStore("DataStore", { keyPath: "ssn" });
-
-      // Create an index to search customers by name. We may have duplicates
-      // so we can't use a unique index.
-      objectStore.createIndex("JSON", "JSON", { unique: false });
-
-      // Create an index to search customers by email. We want to ensure that
-      // no two customers have the same email, so use a unique index.
-      objectStore.createIndex("ID", "ID", { unique: true });
-
-      // Use transaction oncomplete to make sure the objectStore creation is 
-      // finished before adding data into it.
-      objectStore.transaction.oncomplete = function(event) {
-        // Store values in the newly created objectStore.
-        var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("data");
-
-      };
-    }
+  if (!indexedDB) {
+      window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
+  }else{
+    createDB();
   }
   //event.waitUntil(
     caches.keys().then(function(cacheNames) {
@@ -101,6 +71,73 @@ self.addEventListener('activate', function(event) {
   //);
 });
 
+
+function createDB(){
+  var request = indexedDB.open(dbName, 2);
+
+  request.onerror = function(event) {
+    // Handle errors.
+    console.log(event);
+  };
+  request.onupgradeneeded = function(event) {
+    var db = event.target.result;
+
+    // Create an objectStore to hold information about our customers. We're
+    // going to use "ssn" as our key path because it's guaranteed to be
+    // unique - or at least that's what I was told during the kickoff meeting.
+    var objectStore = db.createObjectStore("DataStore", { keyPath: "ssn" });
+
+    // Create an index to search customers by name. We may have duplicates
+    // so we can't use a unique index.
+    objectStore.createIndex("JSON", "JSON", { unique: false });
+
+    // Create an index to search customers by email. We want to ensure that
+    // no two customers have the same email, so use a unique index.
+    objectStore.createIndex("ID", "ID", { unique: true });
+
+    // Use transaction oncomplete to make sure the objectStore creation is 
+    // finished before adding data into it.
+    objectStore.transaction.oncomplete = function(event) {
+      // Store values in the newly created objectStore.
+      var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("data");
+
+    };
+  }
+}
+
+function addData(obj){
+
+  var request = indexedDB.open(dbName, 2);
+
+  request.onerror = function(event) {
+    // Handle errors.
+    console.log(event);
+  };
+  request.onupgradeneeded = function(event) {
+
+    var db = event.target.result;
+    var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("data");
+    customerObjectStore.add(obj);
+  }
+}
+
+function getAll(){
+
+  var request = indexedDB.open(dbName, 2);
+
+  request.onerror = function(event) {
+    // Handle errors.
+    console.log(event);
+  };
+  request.onupgradeneeded = function(event) {
+
+    var db = event.target.result;
+    db.transaction("DataStore", 'readonly');
+    var store = tx.objectStore('data');
+    return store.getAll();
+  }
+}
+
 self.addEventListener('message', function(event) {
   console.log('Handling message event:', event);
   var p = caches.open(CURRENT_CACHES['post-message']).then(function(cache) {
@@ -124,7 +161,7 @@ self.addEventListener('message', function(event) {
             urls: urls
           });
         //});
-
+        return getAll();
       // This command adds a new request/response pair to the cache.
       case 'add':
         // If event.data.url isn't a valid URL, new Request() will throw a TypeError which will be handled
@@ -143,22 +180,14 @@ self.addEventListener('message', function(event) {
           // If the promise rejects, handle it by returning a standardized error message to the controlled page.
           console.log('Message handling failed:', error);
           //return cache.add(request);
-          var request = indexedDB.open(dbName, 2);
-
-          request.onerror = function(event) {
-            // Handle errors.
-            console.log(event);
-          };
-          request.onupgradeneeded = function(event) {
-            var id = uuidv4();
-            var x = {JSON:event.data.url, ID: id};
-            var db = event.target.result;
-            var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("data");
-            customerObjectStore.add();
-          }
-          event.ports[0].postMessage({
-            error: error.toString()});
+          var id = uuidv4();
+          var x = {JSON:event.data.url, ID: id};
+          addData(x);
+          return event.ports[0].postMessage({
+            error: error.toString()
+          });
         });
+         
 
       // This command removes a request/response pair from the cache (assuming it exists).
       case 'delete':
