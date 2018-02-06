@@ -9,7 +9,9 @@
         
         }
         
-         
+         body{
+            overscroll-behavior-y: none;
+         }
 
         
         body { background: linear-gradient(53deg, #d24a58, #2a2840, #a52f3b);
