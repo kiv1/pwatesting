@@ -109,7 +109,7 @@ function addData(obj){
   request.onsuccess = function(event) {
 
     var db = event.target.result;
-    var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("data");
+    var customerObjectStore = db.transaction("DataStore", "readwrite");
     customerObjectStore.add(obj);
   }
 }
