@@ -33,7 +33,7 @@ if ('serviceWorker' in navigator) {
       return navigator.serviceWorker.ready;
     })
     // ...and then show the interface for the commands once it's ready.
-    .then(showCommands)
+    .then()
     .catch(function(error) {
       // Something went wrong during registration. The service-worker.js file
       // might be unavailable or contain a syntax error.
