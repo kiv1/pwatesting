@@ -71,7 +71,6 @@ self.addEventListener('activate', function(event) {
 
 function createDB(){
   var request = indexedDB.open(dbName, 2);
-  var transaction = db.transaction(["customers"], "readwrite");
   request.onerror = function(event) {
     // Handle errors.
     console.log(event);
