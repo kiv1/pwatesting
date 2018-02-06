@@ -41,7 +41,7 @@ self.addEventListener('activate', function(event) {
   }else{
     createDB();
   }
-  //event.waitUntil(
+  /*event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.map(function(cacheName) {
@@ -64,7 +64,7 @@ self.addEventListener('activate', function(event) {
             'taken control.');
         }));
       });
-    })
+    })*/
   //);
 });
 
@@ -142,7 +142,7 @@ self.addEventListener('message', function(event) {
       // This command returns a list of the URLs corresponding to the Request objects
       // that serve as keys for the current cache.
       case 'keys':
-        //return cache.keys().then(function(requests) {
+        /*return cache.keys().then(function(requests) {
           var urls = requests.map(function(request) {
             return request.url;
           });
@@ -156,7 +156,7 @@ self.addEventListener('message', function(event) {
           event.ports[0].postMessage({
             error: null,
             urls: urls
-          });
+          });*/
         //});
         return getAll();
       // This command adds a new request/response pair to the cache.
