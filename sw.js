@@ -115,6 +115,30 @@ function addData(obj){
   }
 }
 
+function clearData(events){
+
+  var request = indexedDB.open(dbName, 2);
+
+
+  request.onerror = function(event) {
+    // Handle errors.
+    console.log(event);
+  };
+  request.onsuccess = function(event) {
+
+    var db = event.target.result;
+    var customerObject = db.transaction("DataStore", "readwrite");
+    var store = customerObject.objectStore("DataStore")
+    var datas =  store.clear();
+
+    datas.onsuccess = function(){
+      return events.ports[0].postMessage({
+        error: null,
+      });
+    }  
+  }
+}
+
 function getAllData(events){
 
   var request = indexedDB.open(dbName, 2);
@@ -178,12 +202,8 @@ self.addEventListener('message', function(event) {
          
 
       // This command removes a request/response pair from the cache (assuming it exists).
-      case 'delete':
-        return cache.delete(event.data.url).then(function(success) {
-          event.ports[0].postMessage({
-            error: success ? null : 'Item was not found in the cache.'
-          });
-        });
+      case 'clear':
+        return clearData(event);
 
       default:
         // This will be handled by the outer .catch().

@@ -76,7 +76,18 @@ document.querySelector('#sync').addEventListener('click', function() {
       
         data.urls.forEach(function(url) {
           console.log(url.JSON);
-        });
+          sendMessage({
+              command: 'add',
+              url: url.JSON
+            }).then(function(events) {
+              // If the promise resolves, just display a success message.
+              if(events.error == null){
+                console.log('Post success');
+              }else{
+                console.log('Post fail and stored in DB');
+              }
+            }).catch(console.log('Post fail and stored in DB'));
+  });
       }).catch(console.log("err")); // If the promise rejects, show the error.
 });
 
