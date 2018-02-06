@@ -51,9 +51,13 @@ function sendMessage(message) {
 }
 //End of service worker stuff
 
+function startDoing(){
+  $('#loading').show();
+  $('form :input').val('');
+}
 
 document.querySelector('#Login').addEventListener('click', function() {
-  $('#loading').show();
+  startDoing();
 
   var $form = $("form");
   var data = getFormData($form);
@@ -84,7 +88,7 @@ function stopLoading(count, total){
 }
 
 document.querySelector('#sync').addEventListener('click', function() {
-    $('#loading').show();
+    startDoing();
     var count = 0;
     sendMessage({command: 'keys'})
       .then(function(data) {
