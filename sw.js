@@ -130,11 +130,9 @@ function getAllData(){
     db.transaction("DataStore", 'readonly');
     var customerObjectStore = db.transaction("DataStore", 'readonly');  
     var store = customerObjectStore.objectStore('DataStore');
-    var datas =  store.getAll();
+    return store.getAll();
 
-    datas.onsuccess = function(){
-      return datas.result;
-    }
+    
   }
 }
 
@@ -146,11 +144,13 @@ self.addEventListener('message', function(event) {
       // that serve as keys for the current cache.
       case 'keys':
         var datas = getAllData();
-        return
+        return datas.onsuccess = function(){
           event.ports[0].postMessage({
             error: null,
-            urls: datas
+            urls: datas.result
           });
+        }
+
       // This command adds a new request/response pair to the cache.
       case 'add':
         // If event.data.url isn't a valid URL, new Request() will throw a TypeError which will be handled
