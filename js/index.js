@@ -1,19 +1,48 @@
 //Service worker stuff
 
-navigator.serviceWorker.addEventListener('message', function(event) {
-    console.log(event.data);
-});
-
-
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js').then(function(registration) {
-      // Registration was successful
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }, function(err) {
-      // registration failed :(
-      console.log('ServiceWorker registration failed: ', err);
+  // Set up a listener for messages posted from the service worker.
+  // The service worker is set to post a message to all its clients once it's run its activation
+  // handler and taken control of the page, so you should see this message event fire once.
+  // You can force it to fire again by visiting this page in an Incognito window.
+  navigator.serviceWorker.addEventListener('message', function(event) {
+    console.log(event.data);
+  });
+
+  navigator.serviceWorker.register('service-worker.js')
+    // Wait until the service worker is active.
+    .then(function() {
+      return navigator.serviceWorker.ready;
+    })
+    // ...and then show the interface for the commands once it's ready.
+    .then()
+    .catch(function(error) {
+      // Something went wrong during registration. The service-worker.js file
+      // might be unavailable or contain a syntax error.
+      console.log(error);
     });
+} else {
+  console.log('This browser does not support service workers.');
+}
+
+function sendTestForm(message){
+  console.log(message.data);
+  return new Promise(function(resolve, reject) {
+    var messageChannel = new MessageChannel();
+    messageChannel.port1.onmessage = function(event) {
+      if (event.data.error) {
+        reject(event.data.error);
+      } else {
+        resolve(event.data);
+      }
+    };
+
+    // This sends the message data as well as transferring messageChannel.port2 to the service worker.
+    // The service worker can then use the transferred port to reply via postMessage(), which
+    // will in turn trigger the onmessage handler on messageChannel.port1.
+    // See https://html.spec.whatwg.org/multipage/workers.html#dom-worker-postmessage
+    navigator.serviceWorker.controller.postMessage(message,
+      [messageChannel.port2]);
   });
 }
 
@@ -45,27 +74,6 @@ document.querySelector('#sync').addEventListener('click', function() {
       }).catch(console.log("err")); // If the promise rejects, show the error.
 });
 
-
-function sendTestForm(message){
-  console.log(message.data);
-  return new Promise(function(resolve, reject) {
-    var messageChannel = new MessageChannel();
-    messageChannel.port1.onmessage = function(event) {
-      if (event.data.error) {
-        reject(event.data.error);
-      } else {
-        resolve(event.data);
-      }
-    };
-
-    // This sends the message data as well as transferring messageChannel.port2 to the service worker.
-    // The service worker can then use the transferred port to reply via postMessage(), which
-    // will in turn trigger the onmessage handler on messageChannel.port1.
-    // See https://html.spec.whatwg.org/multipage/workers.html#dom-worker-postmessage
-    navigator.serviceWorker.controller.postMessage(message,
-      [messageChannel.port2]);
-  });
-}
 
 function getFormData($form){
     var unindexed_array = $form.serializeArray();
