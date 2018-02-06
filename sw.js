@@ -115,8 +115,7 @@ function addData(obj){
   }
 }
 
-function getAllData(){
-
+function getAllData(events){
 
   var request = indexedDB.open(dbName, 2);
 
@@ -133,7 +132,7 @@ function getAllData(){
     var datas =  store.getAll();
 
     datas.onsuccess = function(){
-      return event.ports[0].postMessage({
+      return events.ports[0].postMessage({
         error: null,
         urls: datas.result
       });
@@ -148,7 +147,7 @@ self.addEventListener('message', function(event) {
       // This command returns a list of the URLs corresponding to the Request objects
       // that serve as keys for the current cache.
       case 'keys':
-        return getAllData()
+        return getAllData(event)
         
 
       // This command adds a new request/response pair to the cache.
