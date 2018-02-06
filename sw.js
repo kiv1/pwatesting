@@ -97,6 +97,8 @@ self.addEventListener('message', function(event) {
         // CORS, and we don't have any way of knowing whether an arbitrary URL that a user entered supports CORS.
         var request = new Request(event.data.url, {mode: 'no-cors'});
         return fetch(request).then(function(response) {
+          console.log(event.data.data);
+          console.log(response);
           return cache.put(event.data.data, response);
         }).then(function() {
           event.ports[0].postMessage({
