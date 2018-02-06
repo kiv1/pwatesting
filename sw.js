@@ -71,7 +71,7 @@ self.addEventListener('activate', function(event) {
 
 function createDB(){
   var request = indexedDB.open(dbName, 2);
-
+  var transaction = db.transaction(["customers"], "readwrite");
   request.onerror = function(event) {
     // Handle errors.
     console.log(event);
@@ -100,9 +100,10 @@ function createDB(){
 
 function addData(obj){
 
-  var request = indexedDB.open(dbName, 2);
+  //var request = indexedDB.open(dbName, 2);
+  customerObjectStore.add(obj);
 
-  request.onerror = function(event) {
+  /*request.onerror = function(event) {
     // Handle errors.
     console.log(event);
   };
@@ -111,12 +112,14 @@ function addData(obj){
     var db = event.target.result;
     var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("data");
     customerObjectStore.add(obj);
-  }
+  }*/
 }
 
 function getAll(){
 
-  var request = indexedDB.open(dbName, 2);
+  var store = customerObjectStore.objectStore('data');
+  return store.getAll();
+  /*var request = indexedDB.open(dbName, 2);
 
   request.onerror = function(event) {
     // Handle errors.
@@ -126,9 +129,8 @@ function getAll(){
 
     var db = event.target.result;
     db.transaction("DataStore", 'readonly');
-    var store = tx.objectStore('data');
-    return store.getAll();
-  }
+
+  }*/
 }
 
 self.addEventListener('message', function(event) {
