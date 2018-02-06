@@ -62,7 +62,7 @@ document.querySelector('#Login').addEventListener('click', function() {
     url: string
   }).then(function(events) {
     // If the promise resolves, just display a success message.
-    if(ex=vents.error == null){
+    if(events.error == null){
       console.log('Post success');
     }else{
       console.log('Post fail and stored in DB');
