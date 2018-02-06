@@ -102,6 +102,13 @@ self.addEventListener('message', function(event) {
           event.ports[0].postMessage({
             error: null
           });
+        }).catch(function(error) {
+          // If the promise rejects, handle it by returning a standardized error message to the controlled page.
+          console.log('Message handling failed:', error);
+          return cache.add(request);
+
+          event.ports[0].postMessage({
+            error: error.toString()});
         });
 
       // This command removes a request/response pair from the cache (assuming it exists).
@@ -119,7 +126,6 @@ self.addEventListener('message', function(event) {
   }).catch(function(error) {
     // If the promise rejects, handle it by returning a standardized error message to the controlled page.
     console.log('Message handling failed:', error);
-    return cache.put(event.data.url);
 
     event.ports[0].postMessage({
       error: error.toString()
