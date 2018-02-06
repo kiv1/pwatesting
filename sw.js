@@ -4,11 +4,8 @@ var filesToCache = [ '/index.html',
   '/js/index.js',
   '/css/style.css'];
 
-window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-// DON'T use "var indexedDB = ..." if you're not in a function.
-// Moreover, you may need references to some window.IDB* objects:
-window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction || {READ_WRITE: "readwrite"}; // This line should only be needed if it is needed to support the object's constants for older browsers
-window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+
 
 //var CACHE_VERSION = 1;
 //var CURRENT_CACHES = {
@@ -42,9 +39,9 @@ self.addEventListener('activate', function(event) {
   //var expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
   //  return CURRENT_CACHES[key];
   //});
-  if (!window.indexedDB) {
-      window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
-  }else{
+    if (!indexedDB) {
+        window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
+    }else{
 
     var request = indexedDB.open(dbName, 2);
 
