@@ -83,6 +83,17 @@ document.querySelector('#sync').addEventListener('click', function() {
               // If the promise resolves, just display a success message.
               if(events.error == null){
                 console.log('Post success');
+                sendMessage({
+                  command: 'delete',
+                  key: url.Key
+                }).then(function(events) {
+                  // If the promise resolves, just display a success message.
+                  if(events.error == null){
+                    console.log('Delete success');
+                  }else{
+                    console.log('Delete fail and stored in DB');
+                  }
+                }).catch(console.log('Delete fail and stored in DB'));
               }else{
                 console.log('Post fail and stored in DB');
               }
