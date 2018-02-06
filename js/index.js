@@ -103,7 +103,8 @@ document.querySelector('#sync').addEventListener('click', function() {
           // If the promise resolves, just display a success message.
           if(events.error == null){
             showMessage('Delete success');
-            data.urls.forEach(function(url) {
+            if(data.urls.length > 0){
+              data.urls.forEach(function(url) {
               console.log(url.JSON);
               var key = url.ID;
               sendMessage({
@@ -125,7 +126,10 @@ document.querySelector('#sync').addEventListener('click', function() {
                     count++;
                     stopLoading(count, data.urls.length);
                   });
-            });
+              });
+            }else{
+              $('#loading').hide();
+            }
           }else{
             showMessage('Delete fail and stored in DB');
           }
