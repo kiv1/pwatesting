@@ -133,10 +133,11 @@ function getAllData(){
     var datas =  store.getAll();
 
     datas.onsuccess = function(){
-    return event.ports[0].postMessage({
-      error: null,
-      urls: datas.result
-    });
+      return event.ports[0].postMessage({
+        error: null,
+        urls: datas.result
+      });
+    }
   }
 }
 
