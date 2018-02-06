@@ -15,7 +15,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-document.querySelector('#TestForm').addEventListener('click', function() {
+document.querySelector('#Login').addEventListener('click', function() {
     var $form = $("form");
     var data = getFormData($form);
 
