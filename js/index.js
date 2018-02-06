@@ -20,10 +20,10 @@ if ('serviceWorker' in navigator) {
     .catch(function(error) {
       // Something went wrong during registration. The service-worker.js file
       // might be unavailable or contain a syntax error.
-      console.log(error);
+      showMessage(error);
     });
 } else {
-  console.log('This browser does not support service workers.');
+  showMessage('This browser does not support service workers.');
 }
 
 function sendMessage(message) {
@@ -69,22 +69,26 @@ document.querySelector('#Login').addEventListener('click', function() {
   }).then(function(events) {
     // If the promise resolves, just display a success message.
     if(events.error == null){
-      console.log('Post success');
+      showMessage('Post success');
       $('#loading').hide();
 
     }else{
-      console.log('Post fail and stored in DB');
+      showMessage('Post fail and stored in DB');
       $('#loading').hide();
 
     }
   }).catch(function(){
-    console.log('Post fail and stored in DB');       
+    showMessage('Post fail and stored in DB');       
     $('#loading').hide();
   }); // If the promise rejects, show the error.
 });
 
 function stopLoading(count, total){
   $('#loading').hide();
+}
+
+function showMessage(msg){
+  $('#message').text(msg)
 }
 
 document.querySelector('#sync').addEventListener('click', function() {
@@ -97,7 +101,7 @@ document.querySelector('#sync').addEventListener('click', function() {
         }).then(function(events) {
           // If the promise resolves, just display a success message.
           if(events.error == null){
-            console.log('Delete success');
+            showMessage('Delete success');
             data.urls.forEach(function(url) {
               console.log(url.JSON);
               var key = url.ID;
@@ -107,26 +111,26 @@ document.querySelector('#sync').addEventListener('click', function() {
                 }).then(function(events) {
                   // If the promise resolves, just display a success message.
                   if(events.error == null){
-                    console.log('Post success');
+                    showMessage('Post success');
                     count++;
                     stopLoading(count, data.urls.length);
                   }else{
-                    console.log('Post fail and stored in DB');
+                    showMessage('Post fail and stored in DB');
                     count++;
                     stopLoading(count, data.urls.length);
                   }
                 }).catch(function(){
-                    console.log('Post fail and stored in DB')
+                    showMessage('Post fail and stored in DB')
                     count++;
                     stopLoading(count, data.urls.length);
                   });
             });
           }else{
-            console.log('Delete fail and stored in DB');
+            showMessage('Delete fail and stored in DB');
           }
-        }).catch(console.log('Delete fail and stored in DB'));
+        }).catch(showMessage('Delete fail and stored in DB'));
 
-      }).catch(console.log("err")); // If the promise rejects, show the error.
+      }).catch(showMessage("Service worker suck so just keep refreshing and closing")); // If the promise rejects, show the error.
 });
 
 
