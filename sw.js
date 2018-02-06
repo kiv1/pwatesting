@@ -4,11 +4,17 @@ var filesToCache = [ '/index.html',
   '/js/index.js',
   '/css/style.css'];
 
+window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+// DON'T use "var indexedDB = ..." if you're not in a function.
+// Moreover, you may need references to some window.IDB* objects:
+window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction || {READ_WRITE: "readwrite"}; // This line should only be needed if it is needed to support the object's constants for older browsers
+window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
 
-var CACHE_VERSION = 1;
-var CURRENT_CACHES = {
-  'post-message': 'post-message-cache-v' + CACHE_VERSION
-};
+//var CACHE_VERSION = 1;
+//var CURRENT_CACHES = {
+//  'post-message': 'post-message-cache-v' + CACHE_VERSION
+//};
+const dbName = "DataStorage";
 
 
 self.addEventListener('install', function(e) {
@@ -33,11 +39,49 @@ self.addEventListener('activate', function(event) {
   // Delete all caches that aren't named in CURRENT_CACHES.
   // While there is only one cache in this example, the same logic will handle the case where
   // there are multiple versioned caches.
-  var expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
-    return CURRENT_CACHES[key];
-  });
+  //var expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
+  //  return CURRENT_CACHES[key];
+  //});
+  if (!window.indexedDB) {
+      window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
+  }else{
 
-  event.waitUntil(
+    var request = indexedDB.open(dbName, 2);
+
+    request.onerror = function(event) {
+      // Handle errors.
+      console.log(event);
+    };
+    request.onupgradeneeded = function(event) {
+      var db = event.target.result;
+
+      // Create an objectStore to hold information about our customers. We're
+      // going to use "ssn" as our key path because it's guaranteed to be
+      // unique - or at least that's what I was told during the kickoff meeting.
+      var objectStore = db.createObjectStore("DataStore", { keyPath: "ssn" });
+
+      // Create an index to search customers by name. We may have duplicates
+      // so we can't use a unique index.
+      objectStore.createIndex("JSON", "JSON", { unique: false });
+
+      // Create an index to search customers by email. We want to ensure that
+      // no two customers have the same email, so use a unique index.
+      objectStore.createIndex("ID", "ID", { unique: true });
+
+      // Use transaction oncomplete to make sure the objectStore creation is 
+      // finished before adding data into it.
+      objectStore.transaction.oncomplete = function(event) {
+        // Store values in the newly created objectStore.
+        var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("data");
+
+      };
+    }
+  }
+};
+
+
+  }
+  //event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.map(function(cacheName) {
@@ -61,7 +105,7 @@ self.addEventListener('activate', function(event) {
         }));
       });
     })
-  );
+  //);
 });
 
 self.addEventListener('message', function(event) {
@@ -71,13 +115,13 @@ self.addEventListener('message', function(event) {
       // This command returns a list of the URLs corresponding to the Request objects
       // that serve as keys for the current cache.
       case 'keys':
-        return cache.keys().then(function(requests) {
+        //return cache.keys().then(function(requests) {
           var urls = requests.map(function(request) {
             return request.url;
           });
 
           return urls;
-        }).then(function(urls) {
+        //}).then(function(urls) {
           // event.ports[0] corresponds to the MessagePort that was transferred as part of the controlled page's
           // call to controller.postMessage(). Therefore, event.ports[0].postMessage() will trigger the onmessage
           // handler from the controlled page.
@@ -86,7 +130,7 @@ self.addEventListener('message', function(event) {
             error: null,
             urls: urls
           });
-        });
+        //});
 
       // This command adds a new request/response pair to the cache.
       case 'add':
@@ -105,8 +149,20 @@ self.addEventListener('message', function(event) {
         }).catch(function(error) {
           // If the promise rejects, handle it by returning a standardized error message to the controlled page.
           console.log('Message handling failed:', error);
-          return cache.add(request);
+          //return cache.add(request);
+          var request = indexedDB.open(dbName, 2);
 
+          request.onerror = function(event) {
+            // Handle errors.
+            console.log(event);
+          };
+          request.onupgradeneeded = function(event) {
+            var id = uuidv4();
+            var x = {JSON:event.data.url, ID: id};
+            var db = event.target.result;
+            var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("data");
+            customerObjectStore.add();
+          }
           event.ports[0].postMessage({
             error: error.toString()});
         });
@@ -143,3 +199,10 @@ self.addEventListener('message', function(event) {
   // takes "too long" to execute, the service worker might be automatically
   // stopped before it's complete.
 });
+
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
