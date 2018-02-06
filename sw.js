@@ -100,38 +100,37 @@ function createDB(){
 function addData(obj){
 
   //var request = indexedDB.open(dbName, 2);
-  var customerObjectStore = storageStuff.transaction("DataStore", "readwrite").objectStore("data");
-  customerObjectStore.add(obj);
 
-  /*request.onerror = function(event) {
-    // Handle errors.
-    console.log(event);
-  };
-  request.onupgradeneeded = function(event) {
-
-    var db = event.target.result;
-    var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("data");
-    customerObjectStore.add(obj);
-  }*/
-}
-
-function getAll(){
-
-  var customerObjectStore = storageStuff.transaction("DataStore", 'readonly');  
-  var store = customerObjectStore.objectStore('data');
-  return store.getAll();
-  /*var request = indexedDB.open(dbName, 2);
 
   request.onerror = function(event) {
     // Handle errors.
     console.log(event);
   };
-  request.onupgradeneeded = function(event) {
+  request.onsuccess = function(event) {
+
+    var db = event.target.result;
+    var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("data");
+    customerObjectStore.add(obj);
+  }
+}
+
+function getAll(){
+
+
+  var request = indexedDB.open(dbName, 2);
+
+  request.onerror = function(event) {
+    // Handle errors.
+    console.log(event);
+  };
+  request.onsuccess  = function(event) {
 
     var db = event.target.result;
     db.transaction("DataStore", 'readonly');
-
-  }*/
+    var customerObjectStore = db.transaction("DataStore", 'readonly');  
+    var store = customerObjectStore.objectStore('data');
+    return store.getAll();
+  }
 }
 
 self.addEventListener('message', function(event) {
