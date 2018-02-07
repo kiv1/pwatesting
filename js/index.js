@@ -63,7 +63,7 @@ document.querySelector('#Login').addEventListener('click', function() {
   try{
     var $form = $("form");
     var data = getFormData($form);
-    var string  = JSON.stringify(data);
+    var string  = data
     $('form :input').val('');
 
     console.log(string);
