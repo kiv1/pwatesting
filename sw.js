@@ -230,7 +230,7 @@ self.addEventListener('message', function(event) {
             data.append( "Username", event.data.url.Username );
             data.append( "Password", event.data.url.Password );
 
-            fetch("https://sheetsu.com/apis/v1.0su/b530c24e1721",
+            return fetch("https://sheetsu.com/apis/v1.0su/b530c24e1721",
             {
                 method: "POST",
                 body: data
@@ -241,7 +241,7 @@ self.addEventListener('message', function(event) {
                 event.ports[0].postMessage({
                     error: null
                 });
-            }).then(function(data){ alert( JSON.stringify( data ) ) })
+            })
             .catch(function(error){                
                 x.sentToServer = false;
                 addData(x);
@@ -249,6 +249,7 @@ self.addEventListener('message', function(event) {
                     error: 'Something went wrong!'
                 }) 
             });
+
 
             // This command removes a request/response pair from the cache (assuming it exists).
         case 'clear':
