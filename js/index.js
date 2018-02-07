@@ -1,5 +1,4 @@
 //Service worker stuff
-
 if ('serviceWorker' in navigator) {
   // Set up a listener for messages posted from the service worker.
   // The service worker is set to post a message to all its clients once it's run its activation
@@ -51,37 +50,62 @@ function sendMessage(message) {
 }
 //End of service worker stuff
 
+function doesConnectionExist() {
+    var xhr = new XMLHttpRequest();
+    var file = "https://pwatesting.azurewebsites.net/image/giphy.gif";
+    var randomNum = Math.round(Math.random() * 10000);
+ 
+    xhr.open('HEAD', file + "?rand=" + randomNum, true);
+    xhr.send();
+     
+    xhr.addEventListener("readystatechange", processRequest, false);
+ 
+    function processRequest(e) {
+      if (xhr.readyState == 4) {
+        if (xhr.status >= 200 && xhr.status < 304) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+}
+
 function startDoing(){
   $('#loading').show();
 }
 
 document.querySelector('#Login').addEventListener('click', function() {
   startDoing();
+  try{
+    var $form = $("form");
+    var data = getFormData($form);
+    var string  = JSON.stringify(data);
+    $('form :input').val('');
 
-  var $form = $("form");
-  var data = getFormData($form);
-  var string  = JSON.stringify(data);
-  $('form :input').val('');
+    console.log(string);
+    sendMessage({
+      command: 'add',
+      url: string
+    }).then(function(events) {
+      // If the promise resolves, just display a success message.
+      if(events.error == null){
+        showMessage('Post success');
+        $('#loading').hide();
 
-  console.log(string);
-  sendMessage({
-    command: 'add',
-    url: string
-  }).then(function(events) {
-    // If the promise resolves, just display a success message.
-    if(events.error == null){
-      showMessage('Post success');
+      }else{
+        showMessage('Post fail and stored in DB');
+        $('#loading').hide();
+
+      }
+    }).catch(function(){
+      showMessage('Post fail and stored in DB');       
       $('#loading').hide();
-
-    }else{
-      showMessage('Post fail and stored in DB');
-      $('#loading').hide();
-
-    }
-  }).catch(function(){
-    showMessage('Post fail and stored in DB');       
+    }); // If the promise rejects, show the error.
+  }catch(error){
+    showMessage('Service worker has not started!');       
     $('#loading').hide();
-  }); // If the promise rejects, show the error.
+  }
 });
 
 function stopLoading(scount,ecount,total){
@@ -98,51 +122,60 @@ function showMessage(msg){
 }
 
 document.querySelector('#sync').addEventListener('click', function() {
+  try{
     startDoing();
     var successCount = 0;
     var errorCount = 0;
-
-    sendMessage({command: 'keys'})
-      .then(function(data) {
-        sendMessage({
-          command: 'clear'
-        }).then(function(events) {
-          // If the promise resolves, just display a success message.
-          if(events.error == null){
-            showMessage('Delete success');
-            if(data.urls.length > 0){
-              data.urls.forEach(function(url) {
-              console.log(url.JSON);
-              var key = url.ID;
-              sendMessage({
-                  command: 'add',
-                  url: url.JSON
-                }).then(function(events) {
-                  // If the promise resolves, just display a success message.
-                  if(events.error == null){
-                    showMessage('Post success');
-                    successCount++;
-                    stopLoading(successCount, errorCount, data.urls.length);
-                  }else{
-                    showMessage('Post fail and stored in DB');
-                    errorCount++;
-                    stopLoading(successCount, errorCount, data.urls.length);
-                  }
-                }).catch(function(){
-                    showMessage('Post fail and stored in DB')
-                    errorCount++;
-                    stopLoading(successCount, errorCount, data.urls.length);
-                  });
-              });
+    if(doesConnectionExist){
+      sendMessage({command: 'keys'})
+        .then(function(data) {
+          sendMessage({
+            command: 'clear'
+          }).then(function(events) {
+            // If the promise resolves, just display a success message.
+            if(events.error == null){
+              showMessage('Delete success');
+              if(data.urls.length > 0){
+                data.urls.forEach(function(url) {
+                console.log(url.JSON);
+                var key = url.ID;
+                sendMessage({
+                    command: 'add',
+                    url: url.JSON
+                  }).then(function(events) {
+                    // If the promise resolves, just display a success message.
+                    if(events.error == null){
+                      showMessage('Post success');
+                      successCount++;
+                      stopLoading(successCount, errorCount, data.urls.length);
+                    }else{
+                      showMessage('Post fail and stored in DB');
+                      errorCount++;
+                      stopLoading(successCount, errorCount, data.urls.length);
+                    }
+                  }).catch(function(){
+                      showMessage('Post fail and stored in DB')
+                      errorCount++;
+                      stopLoading(successCount, errorCount, data.urls.length);
+                    });
+                });
+              }else{
+                $('#loading').hide();
+              }
             }else{
-              $('#loading').hide();
+              showMessage('Delete fail and stored in DB');
             }
-          }else{
-            showMessage('Delete fail and stored in DB');
-          }
-        }).catch(showMessage('Delete fail and stored in DB'));
+          }).catch(showMessage('Delete fail and stored in DB'));
 
-      }).catch(showMessage("Service worker suck so just keep refreshing and closing")); // If the promise rejects, show the error.
+        }).catch(showMessage("Service worker suck so just keep refreshing and closing"));
+      }else{
+        showMessage('No internet connection to sync');
+        $('#loading').hide();
+      } // If the promise rejects, show the error.
+    }catch(error){
+      showMessage('Service worker has not started!');       
+      $('#loading').hide();
+    }
 });
 
 
