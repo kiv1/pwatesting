@@ -130,7 +130,7 @@ document.querySelector('#sync').addEventListener('click', function() {
     startDoing();
     var successCount = 0;
     var errorCount = 0;
-    if(doesConnectionExist){
+    if(doesConnectionExist()){
       sendMessage({command: 'keys'})
         .then(function(data) {
           sendMessage({
