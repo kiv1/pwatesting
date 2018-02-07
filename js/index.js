@@ -55,7 +55,7 @@ function sendMessage(message) {
 
 function doesConnectionExist() {
     var xhr = new XMLHttpRequest();
-    var file = "https://pwatesting.azurewebsites.net/image/giphy.gif";
+    var file = "https://dummyimage.com/600x400/000/fff";
     var randomNum = Math.round(Math.random() * 10000);
  
     xhr.open('HEAD', file + "?rand=" + randomNum, true);
