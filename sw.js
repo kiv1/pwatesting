@@ -227,7 +227,8 @@ self.addEventListener('message', function(event) {
             var x = { JSON: event.data.url, ID: id, sentToServer:false };
 
             var data = new FormData();
-            data.append( "json", JSON.stringify(event.data.url) );
+            data.append( "Username", event.data.url.Username );
+            data.append( "Password", event.data.url.Password );
 
             fetch("https://sheetsu.com/apis/v1.0su/b530c24e1721",
             {
@@ -245,9 +246,9 @@ self.addEventListener('message', function(event) {
                 x.sentToServer = false;
                 addData(x);
                 event.ports[0].postMessage({
-                    error: error.toString()
+                    error: 'Something went wrong!'
                 }) 
-              });
+            });
 
             // This command removes a request/response pair from the cache (assuming it exists).
         case 'clear':
