@@ -234,8 +234,7 @@ self.addEventListener('message', function(event) {
               "processData": false,
               "data": event.data.url
             }
-            var id = uuidv4();
-            var x = { JSON: event.data.url, ID: id, sentToServer:false };
+ 
             $.ajax(settings).done(function (response) {
                x.sentToServer = true;
                 addData(x);
@@ -250,6 +249,31 @@ self.addEventListener('message', function(event) {
                 });
             });
 
+            var id = uuidv4();
+            var x = { JSON: event.data.url, ID: id, sentToServer:false };
+
+            var data = new FormData();
+            data.append( "json", JSON.stringify(event.data.url) );
+
+            fetch("https://sheetsu.com/apis/v1.0su/b530c24e1721",
+            {
+                method: "POST",
+                body: data
+            })
+            .then(function(res){
+              x.sentToServer = true;
+                addData(x);
+                event.ports[0].postMessage({
+                    error: null
+                });
+            })
+            .catch(function(data){                
+                x.sentToServer = false;
+                addData(x);
+                event.ports[0].postMessage({
+                    error: error.toString()
+                }) 
+              });
 
             // This command removes a request/response pair from the cache (assuming it exists).
         case 'clear':
