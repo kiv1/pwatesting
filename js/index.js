@@ -17,7 +17,7 @@ function startworkers(){
 
       })
       // ...and then show the interface for the commands once it's ready.
-      .then(showMessage('Service worker started!');)
+      .then(function(){showMessage('Service worker started!')})
       .catch(function(error) {
         // Something went wrong during registration. The service-worker.js file
         // might be unavailable or contain a syntax error.
