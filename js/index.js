@@ -82,7 +82,8 @@ document.querySelector('#Login').addEventListener('click', function() {
 
       }
     }).catch(function(){
-      showMessage('Post fail and stored in DB');       
+      showMessage('Service worker has not started!');
+      startworkers();       
       $('#loading').hide();
     }); // If the promise rejects, show the error.
   }catch(error){
