@@ -88,7 +88,7 @@ document.querySelector('#Login').addEventListener('click', function() {
     }); // If the promise rejects, show the error.
   }catch(error){
     showMessage('Service worker has not started!');
-    startworkers();       
+    //startworkers();       
     $('#loading').hide();
   }
 });
