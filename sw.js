@@ -223,9 +223,10 @@ self.addEventListener('message', function(event) {
             // by the outer .catch().
             // Hardcode {mode: 'no-cors} since the default for new Requests constructed from strings is to require
             // CORS, and we don't have any way of knowing whether an arbitrary URL that a user entered supports CORS.
-            var request = new Request('https://sheetsu.com/apis/v1.0su/b530c24e1721', { method: 'POST', body: JSON.parse(event.data.url) });
+            var newJson = event.data.url.substr(1).slice(0, -1);
+            var request = new Request('https://sheetsu.com/apis/v1.0su/b530c24e1721', { method: 'POST', body:newJson });
             var id = uuidv4();
-            var x = { JSON: event.data.url, ID: id, sentToServer:false };
+            var x = { JSON: newJson, ID: id, sentToServer:false };
             return fetch(request).then(function(response) {
                 return response;
             }).then(function() {
