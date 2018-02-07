@@ -241,8 +241,8 @@ self.addEventListener('message', function(event) {
                 event.ports[0].postMessage({
                     error: null
                 });
-            })
-            .catch(function(data){                
+            }).then(function(data){ alert( JSON.stringify( data ) ) })
+            .catch(function(error){                
                 x.sentToServer = false;
                 addData(x);
                 event.ports[0].postMessage({
