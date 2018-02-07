@@ -53,26 +53,6 @@ function sendMessage(message) {
 }
 //End of service worker stuff
 
-function doesConnectionExist() {
-    var xhr = new XMLHttpRequest();
-    var file = "https://dummyimage.com/600x400/000/fff";
-    var randomNum = Math.round(Math.random() * 10000);
- 
-    xhr.open('HEAD', file + "?rand=" + randomNum, true);
-    xhr.send();
-     
-    xhr.addEventListener("readystatechange", processRequest, false);
- 
-    function processRequest(e) {
-      if (xhr.readyState == 4) {
-        if (xhr.status >= 200 && xhr.status < 304) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    }
-}
 
 function startDoing(){
   $('#loading').show();
@@ -130,7 +110,7 @@ document.querySelector('#sync').addEventListener('click', function() {
     startDoing();
     var successCount = 0;
     var errorCount = 0;
-    if(doesConnectionExist()){
+    if(navigator.onLine){
       sendMessage({command: 'keys'})
         .then(function(data) {
           sendMessage({
