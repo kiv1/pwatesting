@@ -223,32 +223,6 @@ self.addEventListener('message', function(event) {
             // by the outer .catch().
             // Hardcode {mode: 'no-cors} since the default for new Requests constructed from strings is to require
             // CORS, and we don't have any way of knowing whether an arbitrary URL that a user entered supports CORS.
-            var settings = {
-              "async": true,
-              "crossDomain": true,
-              "url": "https://sheetsu.com/apis/v1.0su/b530c24e1721",
-              "method": "POST",
-              "headers": {
-                "content-type": "application/json",
-              },
-              "processData": false,
-              "data": event.data.url
-            }
- 
-            $.ajax(settings).done(function (response) {
-               x.sentToServer = true;
-                addData(x);
-                event.ports[0].postMessage({
-                    error: null
-                });
-            }).fail(function( jqXHR, textStatus, errorThrown ) {
-                x.sentToServer = false;
-                addData(x);
-                event.ports[0].postMessage({
-                    error: error.toString()
-                });
-            });
-
             var id = uuidv4();
             var x = { JSON: event.data.url, ID: id, sentToServer:false };
 
