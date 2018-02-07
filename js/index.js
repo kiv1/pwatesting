@@ -1,28 +1,31 @@
-//Service worker stuff
-if ('serviceWorker' in navigator) {
-  // Set up a listener for messages posted from the service worker.
-  // The service worker is set to post a message to all its clients once it's run its activation
-  // handler and taken control of the page, so you should see this message event fire once.
-  // You can force it to fire again by visiting this page in an Incognito window.
-  navigator.serviceWorker.addEventListener('message', function(event) {
-    console.log(event.data);
-  });
-
-  navigator.serviceWorker.register('/sw.js')
-    // Wait until the service worker is active.
-    .then(function() {
-      return navigator.serviceWorker.ready;
-
-    })
-    // ...and then show the interface for the commands once it's ready.
-    .then()
-    .catch(function(error) {
-      // Something went wrong during registration. The service-worker.js file
-      // might be unavailable or contain a syntax error.
-      showMessage(error);
+startworkers();
+function startworkers(){
+  //Service worker stuff
+  if ('serviceWorker' in navigator) {
+    // Set up a listener for messages posted from the service worker.
+    // The service worker is set to post a message to all its clients once it's run its activation
+    // handler and taken control of the page, so you should see this message event fire once.
+    // You can force it to fire again by visiting this page in an Incognito window.
+    navigator.serviceWorker.addEventListener('message', function(event) {
+      console.log(event.data);
     });
-} else {
-  showMessage('This browser does not support service workers.');
+
+    navigator.serviceWorker.register('/sw.js')
+      // Wait until the service worker is active.
+      .then(function() {
+        return navigator.serviceWorker.ready;
+
+      })
+      // ...and then show the interface for the commands once it's ready.
+      .then(showMessage('Service worker started!');)
+      .catch(function(error) {
+        // Something went wrong during registration. The service-worker.js file
+        // might be unavailable or contain a syntax error.
+        showMessage(error);
+      });
+  } else {
+    showMessage('This browser does not support service workers.');
+  }
 }
 
 function sendMessage(message) {
@@ -103,7 +106,8 @@ document.querySelector('#Login').addEventListener('click', function() {
       $('#loading').hide();
     }); // If the promise rejects, show the error.
   }catch(error){
-    showMessage('Service worker has not started!');       
+    showMessage('Service worker has not started!');
+    startworkers();       
     $('#loading').hide();
   }
 });
