@@ -70,7 +70,7 @@ document.querySelector('#Login').addEventListener('click', function() {
     $('form :input').val('');
 
     //console.log(string);
-    postRequest(data);
+    postRequest(JSON.stringify(data));
     /*sendMessage({
       command: 'add',
       url: string
@@ -118,7 +118,7 @@ document.querySelector('#sync').addEventListener('click', function() {
 
       var allData = getAllData();
       allData.forEach(function(element) {
-        postRequestSync(element);
+        postRequestSync(JSON.stringify(data));
       });
 
     /*if(navigator.onLine){
@@ -217,6 +217,7 @@ function postRequest(data){
 }
 
 function postRequestSync(obj){
+  var string = JSON.stringify(obj.JSON);
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -227,19 +228,19 @@ function postRequestSync(obj){
       "Cache-Control": "no-cache"
     },
     "processData": false,
-    "data":x.JSON
+    "data": string
   }
 
   $.ajax(settings).done(function (response) {
     showMessage("Post success!");
-    x.sentToServer = true;
-    addUpdateData(x);
+    obj.sentToServer = true;
+    addUpdateData(obj);
     $('#loading').hide();
   }).fail(function( jqXHR, textStatus, errorThrown ) {
     showMessage("Something went wrong!");
     console.log(errorThrown);
-    x.sentToServer = false;
-    addUpdateData(x);
+    obj.sentToServer = false;
+    addUpdateData(obj);
     $('#loading').hide();
   });
 }
