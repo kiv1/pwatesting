@@ -1,4 +1,7 @@
-startworkers();
+//startworkers();
+const dbName = "DataStorage";
+
+createDB();
 function startworkers(){
   //Service worker stuff
   if ('serviceWorker' in navigator) {
@@ -63,11 +66,12 @@ document.querySelector('#Login').addEventListener('click', function() {
   try{
     var $form = $("form");
     var data = getFormData($form);
-    var string  = data;
+    //var string  = data;
     $('form :input').val('');
 
-    console.log(string);
-    sendMessage({
+    //console.log(string);
+    postRequest(data);
+    /*sendMessage({
       command: 'add',
       url: string
     }).then(function(events) {
@@ -85,7 +89,7 @@ document.querySelector('#Login').addEventListener('click', function() {
       showMessage('Service worker has not started!');
       //startworkers();       
       $('#loading').hide();
-    }); // If the promise rejects, show the error.
+    }); // If the promise rejects, show the error.*/
   }catch(error){
     showMessage('Service worker has not started!');
     //startworkers();       
@@ -108,10 +112,16 @@ function showMessage(msg){
 
 document.querySelector('#sync').addEventListener('click', function() {
   try{
-    startDoing();
-    var successCount = 0;
-    var errorCount = 0;
-    if(navigator.onLine){
+      startDoing();
+      var successCount = 0;
+      var errorCount = 0;
+
+      var allData = getAllData();
+      allData.forEach(function(element) {
+        postRequestSync(element);
+      });
+
+    /*if(navigator.onLine){
       sendMessage({command: 'keys'})
         .then(function(data) {
           sendMessage({
@@ -156,9 +166,9 @@ document.querySelector('#sync').addEventListener('click', function() {
       }else{
         showMessage('No internet connection to sync');
         $('#loading').hide();
-      } // If the promise rejects, show the error.
+      } // If the promise rejects, show the error.*/
     }catch(error){
-      showMessage('Service worker has not started!');       
+      showMessage('Seomething went wrong!');       
       $('#loading').hide();
     }
 });
@@ -175,4 +185,187 @@ function getFormData($form){
     return indexed_array;
 }
 
+function postRequest(data){
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://sheetsu.com/apis/v1.0su/b530c24e1721",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache",
+      "Postman-Token": "6564c79f-42ce-2a60-a95f-53ffde04ba8f"
+    },
+    "processData": false,
+    "data":data
+  }
 
+  var id = uuidv4();
+  var x = { JSON: data, ID: id, sentToServer:false };
+
+  $.ajax(settings).done(function (response) {
+    showMessage("Post success!");
+    x.sentToServer = true;
+    addUpdateData(x);
+    $('#loading').hide();
+  }).fail(function( jqXHR, textStatus, errorThrown ) {
+    showMessage("Something went wrong!");
+    x.sentToServer = false;
+    addUpdateData(x);
+    $('#loading').hide();
+  });
+}
+
+function postRequestSync(obj){
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://sheetsu.com/apis/v1.0su/b530c24e1721",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache"
+    },
+    "processData": false,
+    "data":x.JSON
+  }
+
+  $.ajax(settings).done(function (response) {
+    showMessage("Post success!");
+    x.sentToServer = true;
+    addUpdateData(x);
+    $('#loading').hide();
+  }).fail(function( jqXHR, textStatus, errorThrown ) {
+    showMessage("Something went wrong!");
+    console.log(errorThrown);
+    x.sentToServer = false;
+    addUpdateData(x);
+    $('#loading').hide();
+  });
+}
+
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+var storageStuff;
+
+function createDB() {
+    var request = indexedDB.open(dbName, 2);
+    request.onerror = function(event) {
+        // Handle errors.
+        console.log(event);
+    };
+    request.onupgradeneeded = function(event) {
+        var db = event.target.result;
+
+        // Create an objectStore to hold information about our customers. We're
+        // going to use "ssn" as our key path because it's guaranteed to be
+        // unique - or at least that's what I was told during the kickoff meeting.
+        var objectStore = db.createObjectStore("DataStore", { keyPath: "ID" });
+
+        // Create an index to search customers by name. We may have duplicates
+        // so we can't use a unique index.
+        objectStore.createIndex("JSON", "JSON", { unique: false });
+        objectStore.createIndex("sentToServer", "sentToServer", { unique: false });
+
+
+        // Use transaction oncomplete to make sure the objectStore creation is 
+        // finished before adding data into it.
+        objectStore.transaction.oncomplete = function(event) {
+            // Store values in the newly created objectStore.
+            var customerObjectStore = db.transaction("DataStore", "readwrite").objectStore("DataStore");
+            storageStuff = db;
+        };
+    }
+}
+
+function addUpdateData(obj) {
+
+    var request = indexedDB.open(dbName, 2);
+
+
+    request.onerror = function(event) {
+        // Handle errors.
+        console.log(event);
+    };
+    request.onsuccess = function(event) {
+
+        var db = event.target.result;
+        var customerObject = db.transaction("DataStore", "readwrite");
+        var store = customerObject.objectStore("DataStore")
+        store.put(obj);
+    }
+}
+
+function clearData() {
+
+    var request = indexedDB.open(dbName, 2);
+
+
+    request.onerror = function(event) {
+        // Handle errors.
+        console.log(event);
+        return false;
+    };
+    request.onsuccess = function(event) {
+
+        var db = event.target.result;
+        var customerObject = db.transaction("DataStore", "readwrite");
+        var store = customerObject.objectStore("DataStore")
+        var datas = store.clear();
+
+        datas.onsuccess = function() {
+            return true;
+        }
+    }
+}
+
+function deleteEvent(key) {
+
+    var request = indexedDB.open(dbName, 2);
+
+
+    request.onerror = function(event) {
+        // Handle errors.
+        console.log(event);
+        return false;
+    };
+    request.onsuccess = function(event) {
+
+        var db = event.target.result;
+        var customerObject = db.transaction("DataStore", "readwrite");
+        var store = customerObject.objectStore("DataStore")
+        var datas = store.delete(key);
+
+        datas.onsuccess = function() {
+          return true;
+        }
+    }
+}
+
+function getAllData() {
+
+    var request = indexedDB.open(dbName, 2);
+
+    request.onerror = function(event) {
+        // Handle errors.
+        console.log(event);
+        return false;
+    };
+    request.onsuccess = function() {
+
+        var db = event.target.result;
+        db.transaction("DataStore", 'readonly');
+        var customerObjectStore = db.transaction("DataStore", 'readonly');
+        var store = customerObjectStore.objectStore('DataStore');
+        var datas = store.getAll();
+
+        datas.onsuccess = function() {
+            return datas;
+        }
+    }
+}
