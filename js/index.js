@@ -1,6 +1,6 @@
 //startworkers();
 const dbName = "DataStorage";
-
+const url = "https://sheetsu.com/apis/v1.0su/415400067ae6";
 createDB();
 function startworkers(){
   //Service worker stuff
@@ -116,10 +116,7 @@ document.querySelector('#sync').addEventListener('click', function() {
       var successCount = 0;
       var errorCount = 0;
 
-      var allData = getAllData();
-      allData.forEach(function(element) {
-        postRequestSync(JSON.stringify(data));
-      });
+      getAllData();
 
     /*if(navigator.onLine){
       sendMessage({command: 'keys'})
@@ -189,7 +186,7 @@ function postRequest(data){
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://sheetsu.com/apis/v1.0su/b530c24e1721",
+    "url": url,
     "method": "POST",
     "headers": {
       "Content-Type": "application/json",
@@ -215,13 +212,14 @@ function postRequest(data){
     $('#loading').hide();
   });
 }
+var promises = [];
 
 function postRequestSync(obj){
-  var string = JSON.stringify(obj.JSON);
+  var string = obj.JSON;
   var settings = {
-    "async": true,
+    "async": false,
     "crossDomain": true,
-    "url": "https://sheetsu.com/apis/v1.0su/b530c24e1721",
+    "url": url,
     "method": "POST",
     "headers": {
       "Content-Type": "application/json",
@@ -229,20 +227,19 @@ function postRequestSync(obj){
     },
     "processData": false,
     "data": string
-  }
+    }
 
-  $.ajax(settings).done(function (response) {
+  var request = $.ajax(settings).done(function (response) {
     showMessage("Post success!");
     obj.sentToServer = true;
     addUpdateData(obj);
-    $('#loading').hide();
   }).fail(function( jqXHR, textStatus, errorThrown ) {
     showMessage("Something went wrong!");
     console.log(errorThrown);
     obj.sentToServer = false;
     addUpdateData(obj);
-    $('#loading').hide();
   });
+  promises.push(request);
 }
 
 function uuidv4() {
@@ -302,7 +299,7 @@ function addUpdateData(obj) {
     }
 }
 
-function clearData() {
+function clearData(results) {
 
     var request = indexedDB.open(dbName, 2);
 
@@ -313,14 +310,19 @@ function clearData() {
         return false;
     };
     request.onsuccess = function(event) {
-
+        promises = [];
         var db = event.target.result;
         var customerObject = db.transaction("DataStore", "readwrite");
         var store = customerObject.objectStore("DataStore")
         var datas = store.clear();
 
         datas.onsuccess = function() {
-            return true;
+          results.forEach(function(element) {
+            postRequestSync(element);
+          });
+          $.when.apply(null, promises).done(function(){
+            $('#loading').hide();
+          })
         }
     }
 }
@@ -366,7 +368,8 @@ function getAllData() {
         var datas = store.getAll();
 
         datas.onsuccess = function() {
-            return datas;
+            clearData(datas.result);
+
         }
     }
 }
