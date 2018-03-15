@@ -1,14 +1,17 @@
 var isFormValid = true;
-var obj;
+var obj = {};
 var schoolErrorText = $('.school-group .validation');
 var levelErrorText = $('.Level-group .validation');
 var streamErrorText = $('.Stream-group .validation');
 
 $('#submit').on('click', function() {
     try {
-        $('.form-group').each(function(){
-            var enteredText = $(this).find('input').val();
+
+        $('.personalEnquiry').each(function(){
+            var inputElement = $(this).find('input');
+            var enteredText = inputElement.val();
             var errorText = $(this).find('.validation');
+            var elementName = inputElement[0].name;
             if ($.trim(enteredText).length == 0){
                 $(errorText).empty();
                 $(errorText).append('This field cannot be empty!');
@@ -16,10 +19,13 @@ $('#submit').on('click', function() {
                 isFormValid = false;
             }
             else{
+                obj[elementName] = enteredText;
                 $(errorText).empty();
                 $(errorText).hide();         
             }
         });
+
+        console.dir(obj);
 
         if(!$('#magicsuggest').magicSuggest().isValid()){
             $(schoolErrorText).empty();
@@ -30,7 +36,6 @@ $('#submit').on('click', function() {
             $(schoolErrorText).empty();
             $(schoolErrorText).hide(); 
         }
-
         if(!$('#Level').magicSuggest().isValid()){
             $(levelErrorText).empty();
             $(levelErrorText).append('This field cannot be empty!');
@@ -52,26 +57,37 @@ $('#submit').on('click', function() {
         }
 
         $('input[type="checkbox"]').each(function() {
-             var divName = '#'+ $(this).data("name")+'_SuggestArea';
-             var suggestName = '#'+ $(this).data("name");
+            var divName = '#'+ $(this).data("name")+'_SuggestArea';
+            var suggestName = '#'+ $(this).data("name");
+            var errorText = $(divName +' .validation');
 
              if(this.checked) {
-
-                $(suggestName).magicSuggest().clear();
-                $(divName).show();
+                var selected = $(suggestName).magicSuggest().getValue();
+                console.dir(selected);
+                
+                if(selected.length==0){
+                    errorText.append('This field cannot be empty!');
+                    errorText.show();
+                    isFormValid = false;
+                }else{
+                    errorText.empty();
+                    errorText.hide(); 
+                }
              }else{
-                $(divName).hide();
-             }
+                errorText.empty();
+                errorText.hide(); 
+            }
         });
 
-    } catch (error) {
+        if(isFormValid){
+            //do something
+        }
 
+    } catch (error) {
+        console.dir(error);
     }
 });
 
-function showMessage(msg) {
-    $('#sendmessage').text(msg)
-}
 
 document.querySelector('#generate').addEventListener('click', function() {
     //Generate excel
