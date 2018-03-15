@@ -3,67 +3,323 @@
 <html>
 <head>
 	<meta charset='utf-8'>
-    <title>Login</title>
+    <title>Enquiry Form</title>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='description' content='A login page.'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <meta name='mobile-web-app-capable' content='yes'>
-    <meta name='apple-mobile-web-app-capable' content='yes'>
-    <meta name='application-name' content='Login'>
-    <meta name='apple-mobile-web-app-status-bar-style' content='black'>
-    <meta name='apple-mobile-web-app-title' content='Login'>
- 	<link rel='icon' sizes='192x192' href='/image/icon.png'>
-    <link rel='apple-touch-icon' href='/image/icon.png'>
-    <meta name='msapplication-TileImage' content='/image/icon.png'>
-    <meta name='msapplication-TileColor' content='#2A2840'>
-    <meta name='theme-color' content='#2A2840'>
 
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   	<link rel="stylesheet" type="text/css" href="./css/style.css">
- 
-   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-   <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'> 
-   
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'> 
+   	<link href="assets/magicsuggest-min.css" rel="stylesheet">
+
+<script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="assets/magicsuggest-min.js"></script>
 
  
 </head>
 <body>
-  	
-	<div style="background:#976D9D; z-index: 9999;  position:fixed; padding:0; margin:0;top:0;left:0;width: 100%; height: 100%;;" id="loading">
-		<h1 style="margin-top:10px;">Please be patient and enjoy the cat!</h1>
-		<img style="min-width:80%; padding:auto; margin:auto; max-width:100%" src="./image/giphy.gif">
+
+  <form>
+    <h1>Enquiry Form</h1>
+	    
+    <div class="contentform">
+    	<div id="sendmessage"> Your message has been sent successfully. Thank you. </div>
+
+    		<!-- Personal -->
+			<h1>Personal Particulars</h1>
+			<br/>
+
+        	<div class="form-group">
+		        <div class="validation"></div>
+		        <p>Full Name<span>*</span></p>
+		        <span class="icon-case"><i class="fa fa-male"></i></span>
+		        <input type="text" name="Name" id="Name" class="required" placeholder="Full Name" />
+       	   	</div> 
+
+			<div class="form-group">
+		        <div class="validation"></div>				
+				<p>E-mail <span>*</span></p>	
+				<span class="icon-case"><i class="fa fa-envelope-o"></i></span>
+                <input type="email" name="Email" id="email" class="required" placeholder="E-mail" />
+			</div>	
+
+			<div class="form-group">
+				<div class="validation"></div>
+				<p>Mobile Number <span>*</span></p>	
+				<span class="icon-case"><i class="fa fa-phone"></i></span>
+				<input type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" name="Mobile" id="Mobile" maxlength="10" class="required" placeholder="Mobile number" />
+			</div>
+			<div class="school-group">
+				<div class="validation"></div>				
+				<p>School <span>*</span></p>
+				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
+				<input id="magicsuggest"/>
+			</div>
+
+			<div class="Level-group">
+				<div class="validation"></div>				
+				<p>Level <span>*</span></p>
+				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
+				<input id="Level"/>
+			</div>
+
+			<div class="Stream-group">
+				<div class="validation"></div>				
+				<p>Stream <span>*</span></p>
+				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
+				<input id="Stream"/>
+			</div>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+    		<!-- End -->
+
+    		<!-- Course -->
+			<h1>Course Intrest</h1>
+			<br/>
+
+    		<!-- Architecture -->
+			<div>
+				<h4><input style="transform: scale(1.4); margin-right: 20px;" data-name="Architecture" type="checkbox"><i class="fa fa-home"></i> School of Architecture &amp; the Built Environment</h4>
+			</div>
+			<div id="Architecture_SuggestArea" style="display:none;">
+				<div class="validation"></div>				
+				<p>Course <span>*</span></p>
+				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
+				<input id="Architecture"/>
+			</div>
+
+    		<!-- Business -->
+			<div>
+				<h4><input style="transform: scale(1.4); margin-right: 20px;" data-name="Business" type="checkbox"><i class="fa fa-suitcase"></i> School of  Business</h4>
+			</div>
+			<div id="Business_SuggestArea" style="display:none;">
+				<div class="validation"></div>
+				<p>Course <span>*</span></p>
+				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
+				<input id="Business"/>
+			</div>
+
+    		<!-- Chemical -->
+			<div>
+				<h4><input style="transform: scale(1.4); margin-right: 20px;" data-name="Chemical" type="checkbox"><i class="fa fa-flask"></i> School of Chemical &amp; Life Sciences</h4>
+			</div>
+			<div id="Chemical_SuggestArea" style="display:none;">
+				<div class="validation"></div>				
+				<p>Course <span>*</span></p>
+				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
+				<input id="Chemical"/>
+			</div>
+
+    		<!-- Communication -->
+			<div>
+				<h4><input style="transform: scale(1.4); margin-right: 20px;" data-name="Communication" type="checkbox"><i class="fa fa-comments-o"></i> School of Communication, Arts &amp; Social Sciences</h4>
+			</div>
+			<div id="Communication_SuggestArea" style="display:none;">
+				<div class="validation"></div>				
+				<p>Course <span>*</span></p>
+				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
+				<input id="Communication"/>
+			</div>
+
+    		<!-- Design -->
+			<div>
+				<h4><input style="transform: scale(1.4); margin-right: 20px;" data-name="Design" type="checkbox"><i class="fa fa-paint-brush"></i> School of  Design</h4>
+			</div>
+			<div id="Design_SuggestArea" style="display:none;">
+				<div class="validation"></div>				
+				<p>Course <span>*</span></p>
+				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
+				<input id="Design"/>
+			</div>
+
+    		<!-- Technology -->
+			<div>
+				<h4><input style="transform: scale(1.4); margin-right: 20px;" data-name="Technology" type="checkbox"><i class="fa fa-code"></i> School of Digital Media &amp; Infocomm Technology</h4>
+			</div>
+			<div id="Technology_SuggestArea" style="display:none;">
+				<div class="validation"></div>				
+				<p>Course <span>*</span></p>
+				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
+				<input id="Technology"/>
+			</div>
+
+    		<!-- Engineering -->
+			<div>
+				<h4><input style="transform: scale(1.4); margin-right: 20px;" data-name="Engineering" type="checkbox"><i class="fa fa-gears"></i> School of Engineering</h4>
+			</div>	
+			<div id="Engineering_SuggestArea" style="display:none;">
+				<div class="validation"></div>				
+				<p>Course <span>*</span></p>
+				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
+				<input id="Engineering"/>
+			</div>
+
+    		<!-- Maritime -->
+			<div>
+				<h4><input style="transform: scale(1.4); margin-right: 20px;" data-name="Maritime" type="checkbox"><i class="fa fa-ship"></i> Singapore Maritime Academy</h4>
+			</div>	
+
+			<div id="Maritime_SuggestArea" style="display:none;">
+				<div class="validation"></div>				
+				<p>Course <span>*</span></p>
+				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
+				<input id="Maritime"/>
+				<br/>
+				<br/>
+				<br/>
+			</div>
+
+			<br/>
+
+		<h1>Enquiry</h1>
+		<div class="form-group">
+			<br/>
+			<span style="line-height:1122%; " class="icon-case"><i class="fa fa-comments-o"></i></span>
+		    <textarea style="width:94%; height:158px; padding-top:15px;" placeholder="Enquiry" name="Enquiry"></textarea>
+		</div>	
 	</div>
 
-	<header>
-		<h1><img src='https://s32.postimg.org/xs8if349h/logoweb_02.png' border='0' alt='logoweb-02'/></h1>
+	</div>
 
-		 <p id="message" style="width: 100%"> PWA! </p>
-	</header>
+	<button id="submit" type="button" class="bouton-contact">Send</button>
+	<button id="generate" type="button" class="bouton-contact">Generate</button>
+</form>	
 
-	<main>
-		<section id="izquierda">
-	    
-	    
-		<form id="TestForm">     
-		    <h2> Login</h2>
-		    <input type="text" name="Username" placeholder="&#128273; Username" name="Username" required="required">
-		    <input type="password" name="Password" placeholder="&#128273; Password"  required="required">
-    
-  		</form>
 
-	    <button style="margin-bottom:20px" id="Login">Login</button>
-
-		<button id="sync">Sync</button>
-
-		</section>
-		
-	</main>
-
-	 
+  
 </body>
+</html>
 <script type="text/javascript">
-	$('#loading').hide();
-	var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+
+	$('input[type="checkbox"]').change(function() {
+	     var divName = '#'+ $(this).data("name")+'_SuggestArea';
+	     var suggestName = '#'+ $(this).data("name");
+
+	     if(this.checked) {
+	     	$(suggestName).magicSuggest().clear();
+	     	$(divName).show();
+	     }else{
+	     	$(divName).hide();
+	     }
+	 });
+
+	var schoolArray = ['ADMIRALTY SECONDARY SCHOOL','AHMAD IBRAHIM SECONDARY SCHOOL','ANDERSON SECONDARY SCHOOL','ANG MO KIO SECONDARY SCHOOL','ANGLICAN HIGH SCHOOL','ANGLO-CHINESE SCHOOL (BARKER ROAD)','ANGLO-CHINESE SCHOOL (INDEPENDENT)','ASSUMPTION ENGLISH SCHOOL','ASSUMPTION PATHWAY SCHOOL','BARTLEY SECONDARY SCHOOL','BEATTY SECONDARY SCHOOL','BEDOK GREEN SECONDARY SCHOOL','BEDOK SOUTH SECONDARY SCHOOL','BEDOK VIEW SECONDARY SCHOOL','BENDEMEER SECONDARY SCHOOL','BOON LAY SECONDARY SCHOOL','BOWEN SECONDARY SCHOOL','BROADRICK SECONDARY SCHOOL','BUKIT BATOK SECONDARY SCHOOL','BUKIT MERAH SECONDARY SCHOOL','BUKIT PANJANG GOVT. HIGH SCHOOL','BUKIT VIEW SECONDARY SCHOOL','CANBERRA SECONDARY SCHOOL','CATHOLIC HIGH SCHOOL','CEDAR GIRLS\' SECONDARY SCHOOL','CHANGKAT CHANGI SECONDARY SCHOOL','CHIJ KATONG CONVENT','CHIJ SECONDARY (TOA PAYOH)','CHIJ ST. JOSEPH\'S CONVENT','CHIJ ST. NICHOLAS GIRLS\' SCHOOL','CHIJ ST. THERESA\'S CONVENT','CHRIST CHURCH SECONDARY SCHOOL','CHUA CHU KANG SECONDARY SCHOOL','CHUNG CHENG HIGH SCHOOL (MAIN)','CHUNG CHENG HIGH SCHOOL (YISHUN)','CLEMENTI TOWN SECONDARY SCHOOL','COMMONWEALTH SECONDARY SCHOOL','COMPASSVALE SECONDARY SCHOOL','CRESCENT GIRLS\' SCHOOL','CREST SECONDARY SCHOOL','DAMAI SECONDARY SCHOOL','DEYI SECONDARY SCHOOL','DUNEARN SECONDARY SCHOOL','DUNMAN HIGH SCHOOL','DUNMAN SECONDARY SCHOOL','EAST SPRING SECONDARY SCHOOL','EAST VIEW SECONDARY SCHOOL','EDGEFIELD SECONDARY SCHOOL','EVERGREEN SECONDARY SCHOOL','FAIRFIELD METHODIST SCHOOL (SECONDARY)','FAJAR SECONDARY SCHOOL','FUCHUN SECONDARY SCHOOL','FUHUA SECONDARY SCHOOL','GAN ENG SENG SCHOOL','GEYLANG METHODIST SCHOOL (SECONDARY)','GREENDALE SECONDARY SCHOOL','GREENRIDGE SECONDARY SCHOOL','GUANGYANG SECONDARY SCHOOL','HAI SING CATHOLIC SCHOOL','HILLGROVE SECONDARY SCHOOL','HOLY INNOCENTS\' HIGH SCHOOL','HONG KAH SECONDARY SCHOOL','HOUGANG SECONDARY SCHOOL','HUA YI SECONDARY SCHOOL','HWA CHONG INSTITUTION','JUNYUAN SECONDARY SCHOOL','JURONG SECONDARY SCHOOL','JURONG WEST SECONDARY SCHOOL','JURONGVILLE SECONDARY SCHOOL','JUYING SECONDARY SCHOOL','KENT RIDGE SECONDARY SCHOOL','KRANJI SECONDARY SCHOOL','KUO CHUAN PRESBYTERIAN SECONDARY SCHOOL','LOYANG VIEW SECONDARY SCHOOL','MANJUSRI SECONDARY SCHOOL','MARIS STELLA HIGH SCHOOL','MARSILING SECONDARY SCHOOL','MAYFLOWER SECONDARY SCHOOL','MERIDIAN SECONDARY SCHOOL','METHODIST GIRLS\' SCHOOL (SECONDARY)','MONTFORT SECONDARY SCHOOL','NAN CHIAU HIGH SCHOOL','NAN HUA HIGH SCHOOL','NANYANG GIRLS\' HIGH SCHOOL','NATIONAL JUNIOR COLLEGE','NAVAL BASE SECONDARY SCHOOL','NEW TOWN SECONDARY SCHOOL','NGEE ANN SECONDARY SCHOOL','NORTH VISTA SECONDARY SCHOOL','NORTHBROOKS SECONDARY SCHOOL','NORTHLAND SECONDARY SCHOOL','NORTHLIGHT SCHOOL','NUS HIGH SCHOOL OF MATHEMATICS AND SCIENCE','ORCHID PARK SECONDARY SCHOOL','OUTRAM SECONDARY SCHOOL','PASIR RIS CREST SECONDARY SCHOOL','PASIR RIS SECONDARY SCHOOL','PAYA LEBAR METHODIST GIRLS\' SCHOOL (SECONDARY)','PEI HWA SECONDARY SCHOOL','PEICAI SECONDARY SCHOOL','PEIRCE SECONDARY SCHOOL','PING YI SECONDARY SCHOOL','PRESBYTERIAN HIGH SCHOOL','PUNGGOL SECONDARY SCHOOL','QUEENSTOWN SECONDARY SCHOOL','QUEENSWAY SECONDARY SCHOOL','RAFFLES GIRLS\' SCHOOL (SECONDARY)','RAFFLES INSTITUTION','REGENT SECONDARY SCHOOL','RIVER VALLEY HIGH SCHOOL','RIVERSIDE SECONDARY SCHOOL','SCHOOL OF SCIENCE AND TECHNOLOGY, SINGAPORE','SCHOOL OF THE ARTS, SINGAPORE','SEMBAWANG SECONDARY SCHOOL','SENG KANG SECONDARY SCHOOL','SERANGOON GARDEN SECONDARY SCHOOL','SERANGOON SECONDARY SCHOOL','SHUQUN SECONDARY SCHOOL','SINGAPORE CHINESE GIRLS\' SCHOOL','SINGAPORE SPORTS SCHOOL','SPECTRA SECONDARY SCHOOL','SPRINGFIELD SECONDARY SCHOOL','ST. ANDREW\'S SECONDARY SCHOOL','ST. ANTHONY\'S CANOSSIAN SECONDARY SCHOOL','ST. GABRIEL\'S SECONDARY SCHOOL','ST. HILDA\'S SECONDARY SCHOOL','ST. JOSEPH\'S INSTITUTION','ST. MARGARET\'S SECONDARY SCHOOL','ST. PATRICK\'S SCHOOL','SWISS COTTAGE SECONDARY SCHOOL','TAMPINES SECONDARY SCHOOL','TANGLIN SECONDARY SCHOOL','TANJONG KATONG GIRLS\' SCHOOL','TANJONG KATONG SECONDARY SCHOOL','TECK WHYE SECONDARY SCHOOL','TEMASEK JUNIOR COLLEGE','TEMASEK SECONDARY SCHOOL','UNITY SECONDARY SCHOOL','VICTORIA SCHOOL','WEST SPRING SECONDARY SCHOOL','WESTWOOD SECONDARY SCHOOL','WHITLEY SECONDARY SCHOOL','WOODGROVE SECONDARY SCHOOL','WOODLANDS RING SECONDARY SCHOOL','WOODLANDS SECONDARY SCHOOL','XINMIN SECONDARY SCHOOL','YIO CHU KANG SECONDARY SCHOOL','YISHUN SECONDARY SCHOOL','YISHUN TOWN SECONDARY SCHOOL','YUAN CHING SECONDARY SCHOOL','YUHUA SECONDARY SCHOOL','YUSOF ISHAK SECONDARY SCHOOL','YUYING SECONDARY SCHOOL','ZHENGHUA SECONDARY SCHOOL','ZHONGHUA SECONDARY SCHOOL'];
+	
+	var architecture = ['ARCHITECTURE', 'CIVIL ENGINEERING WITH BUSINESS', 'FACILITIES MANAGEMENT', 'FACILITIES MANAGEMENT', 'INTEGRATED EVENTS & PROJECT MANAGEMENT', 'LANDSCAPE ARCHITECTURE'];
+	
+	var business = ['ACCOUNTANCY','BANKING & FINANCE','BUSINESS ADMINISTRATION','FINANCIAL INFORMATICS','HUMAN RESOURCE MANAGEMENT WITH PSYCHOLOGY','TOURISM & RESORT MANAGEMENT']
+
+	var chemical = ['APPLIED CHEMISTRY','BIOMEDICAL SCIENCE','BIOTECHNOLOGY','CHEMICAL ENGINEERING','FOOD SCIENCE & TECHNOLOGY','NUTRITION, HEALTH & WELLNESS','OPTOMETRY','PERFUMERY & COSMETIC SCIENCE']
+
+	var communication = ['EXPERIENCE AND PRODUCT DESIGN', 'GAMES DESIGN & DEVELOPMENT', 'INTERIOR DESIGN',' VISUAL COMMUNICATION AND MEDIA DESIGN']
+
+	var design = ['EXPERIENCE AND PRODUCT DESIGN','GAMES DESIGN & DEVELOPMENT','INTERIOR DESIGN','VISUAL COMMUNICATION AND MEDIA DESIGN']
+
+	var technology = ['BUSINESS INFORMATION TECHNOLOGY','INFOCOMM SECURITY MANAGEMENT','INFORMATION TECHNOLOGY','MUSIC & AUDIO TECHNOLOGY']
+
+	var engineering = ['AERONAUTICAL ENGINEERING', 'AEROSPACE ELECTRONICS', 'BIOENGINEERING', 'COMPUTER ENGINEERING', 'ELECTRICAL & ELECTRONIC ENGINEERING', 'ENERGY SYSTEMS & MANAGEMENT', 'ENGINEERING SYSTEMS', 'ENGINEERING WITH BUSINESS', 'ENGINEERING PROGRAMME', 'MECHATRONICS AND ROBOTICS', 'MECHANICAL ENGINEERING']
+	
+	var maritime = ['MARINE ENGINEERING', 'MARITIME BUSINESS', 'NAUTICAL STUDIES'];
+
+	 var ms = $('#magicsuggest').magicSuggest({    
+	 	placeholder: 'School',
+	    data: schoolArray,
+	    required: true,
+	    allowFreeEntries:false,
+	    maxSelection: 1
+	});
+
+	$('#Architecture').magicSuggest({
+		placeholder: 'Course',
+		expandOnFocus:true,    
+	    data: architecture,
+	    allowFreeEntries:false
+	});
+
+	$('#Business').magicSuggest({    
+	    placeholder: 'Course',
+	    expandOnFocus:true,    
+	    data: business,
+	    allowFreeEntries:false
+	});
+
+	$('#Chemical').magicSuggest({    
+	    placeholder: 'Course', 
+	    expandOnFocus:true,   
+	    data: chemical,
+	    allowFreeEntries:false
+	});
+	
+	$('#Communication').magicSuggest({    
+	    placeholder: 'Course',
+	    expandOnFocus:true,    
+	    data: communication,
+	    allowFreeEntries:false
+	});
+
+	$('#Design').magicSuggest({    
+	    placeholder: 'Course',
+	    expandOnFocus:true,    
+	    data: design,
+	    allowFreeEntries:false
+	});
+
+	$('#Technology').magicSuggest({
+		placeholder: 'Course',
+		expandOnFocus:true,    
+	    data: technology,
+	    allowFreeEntries:false
+	});
+
+	$('#Engineering').magicSuggest({    
+		placeholder: 'Course',
+		expandOnFocus:true,
+	    data: engineering,
+	    allowFreeEntries:false
+	});
+
+	$('#Maritime').magicSuggest({    
+	 	placeholder: 'Course',
+	 	expandOnFocus:true,
+	    data: maritime,
+	    allowFreeEntries:false
+	});
+
+	var levelSug = $('#Level').magicSuggest({    
+	 	placeholder: 'Level',
+	 	expandOnFocus:true,
+	    data: ['1','2','3','4','5'],
+	    required: true,
+	    allowFreeEntries:false,
+	    maxSelection: 1
+	});
+	$(levelSug).on('selectionchange', function(e,m){
+	  let v = this.getValue();
+		if(v == 5){
+	  		streamSug.clear(false);
+	  		streamSug.setValue(['Normal Academic']);
+	  		streamSug.disable();
+	  		streamSug.collapse();
+	  	}else{
+	  		streamSug.enable();
+	  		streamSug.clear(false);
+	  		streamSug.collapse();
+	  }
+	});
+
+	var streamSug = $('#Stream').magicSuggest({    
+	 	placeholder: 'Stream',
+	 	expandOnFocus:true,
+	    data: ['Express', 'Normal Academic', 'Normal Technical'],
+	    required: true,
+	    allowFreeEntries:false,
+	    maxSelection: 1
+	});
 </script>
-<script src="js/index.js" async></script>
+<script src="js/index.js"></script>
 </html>

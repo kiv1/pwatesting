@@ -1,348 +1,165 @@
-*{        margin:0; padding:0;
-         font-family: 'Montserrat', sans-serif;
-         font-size: 20px;
-         box-sizing: border-box; 
-         
-         
-         
-        
-        
-        }
-        
-         body{
-            overscroll-behavior-y: none;
-         }
-
-        
-        body { background: linear-gradient(53deg, #d24a58, #2a2840, #a52f3b);
-                      background-size: 600% 600%;
-
-                    -webkit-animation: AnimationName 30s ease infinite;
-                    -moz-animation: AnimationName 30s ease infinite;
-                    animation: AnimationName 30s ease infinite;
-
-                    @-webkit-keyframes AnimationName {
-                        0%{background-position:70% 0%}
-                        50%{background-position:31% 100%}
-                        100%{background-position:70% 0%}
-                    }
-                    @-moz-keyframes AnimationName {
-                        0%{background-position:70% 0%}
-                        50%{background-position:31% 100%}
-                        100%{background-position:70% 0%}
-                    }
-                    @keyframes AnimationName { 
-                        0%{background-position:70% 0%}
-                        50%{background-position:31% 100%}
-                        100%{background-position:70% 0%}
-                        
-                        
-                        
-                       
-                    }
-            
-           
-            
-        }
-        
- 
-
-          p {font-family: 'Lobster', cursive;
-             color: whitesmoke;}
-       
-    
-        @media screen and (min-width: 801px) {  
-  
-     
-                 header{
-
-                            width: 50%;
-                            padding: 12px;
-                             
-                             margin: 8px auto;
-                            box-sizing:border-box;
- 
-                     }
-            
-        
-
-                 main{
-                            width:800px;
-                            box-sizing:border-box;
-                            margin:10px auto;
-                            overflow:auto;
-                            
-                            
-                        }
-
-            h1   {text-align: center;}
-            
-              p {text-align: center;}
-
-h2 { 
-     
-     text-align: center;
-     margin-bottom: 20px;
-      color: rgba(255,255,255,0.8);
-    
-}
-            
-            
-            
-            input { display: block;
-        padding: 10px;
-        width: 100%;
-        margin: 30px 0;
-        font-size: 20px;
-        box-sizing:border-box;
-         
-    
+body {
+  margin: auto;
+  background: #eaeaea;  
+  font-family: 'Open Sans', sans-serif;
 }
 
-button{
-    width: 100%; 
-    border: 0;
-    height: 40px;
-    color: white;
-    border-radius: 20px;
-    opacity: 0.7;
-    cursor: pointer;
+.info p {
+  text-align:center;
+  color: #999;
+  text-transform:none;
+  font-weight:600;
+  font-size:15px;
+  margin-top:2px
 }
 
-button { 
-background: linear-gradient(169deg, #d24a58, #2a2840, #a52f3b, #d24a58);
-background-size: 800% 800%;
-
--webkit-animation: AnimationName 30s ease infinite;
--moz-animation: AnimationName 30s ease infinite;
-animation: AnimationName 30s ease infinite;
-
-@-webkit-keyframes AnimationName {
-    0%{background-position:70% 0%}
-    50%{background-position:31% 100%}
-    100%{background-position:70% 0%}
+.info i {
+  color:#F6AA93;
 }
-@-moz-keyframes AnimationName {
-    0%{background-position:70% 0%}
-    50%{background-position:31% 100%}
-    100%{background-position:70% 0%}
-}
-@keyframes AnimationName { 
-    0%{background-position:70% 0%}
-    50%{background-position:31% 100%}
-    100%{background-position:70% 0%}
-}
-    
-    
-    
-
-
+form h1 {
+  font-size: 18px;
+  background: #e74c3c none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  text-align:left
 }
 
-button:hover {
-    
-    opacity: 1;
-    
-    
+form {
+  border-radius: 5px;
+  max-width:700px;
+  width:100%;
+  margin: 5% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+p span {
+  color: #F00;
+}
+
+p {
+  margin: 0px;
+  font-weight: 500;
+  line-height: 2;
+  color:#333;
+}
+
+h1 {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+
+.form-group input {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #eee;
+  margin-bottom: 15px;
+  width: 94%;
+  height: 40px;
+  float: left;
+  padding: 0px 15px;
+}
+
+a {
+  text-decoration:inherit
+}
+
+textarea {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #EEE;
+  margin: 0;
+  width: 75%;
+  height: 130px; 
+  float: left;
+  padding: 0px 15px;
+}
+
+.form-group {
+  overflow: hidden;
+  clear: both;
+}
+
+.icon-case {
+  width: 35px;
+  float: left;
+  border-radius: 5px 0px 0px 5px;
+  background:#eeeeee;
+  position: relative;
+  text-align: center;
+  line-height:40px;
+}
+
+i {
+  color:#555;
+}
+
+.contentform {
+  padding: 40px 30px;
+}
+
+.bouton-contact{
+  background-color: #e74c3c;
+  color: #FFF;
+  text-align: center;
+  width: 100%;
+  border:0;
+  padding: 17px 25px;
+  border-radius: 0px 0px 5px 5px;
+  cursor: pointer;
+  margin-top: 40px;
+  font-size: 18px;
+}
+
+.leftcontact {
+  width:49.5%; 
+  float:left;
+  border-right: 1px dotted #CCC;
+  box-sizing: border-box;
+  padding: 0px 15px 0px 0px;
+}
+
+.rightcontact {
+  width:49.5%;
+  float:right;
+  box-sizin,: border-box;
+  padding: 0px 0px 0px 15px;
+}
+
+.validation {
+  display:none;
+  font-weight:400;
+  font-size:13px;
+  color: #DE5959;
 }
 
 
-button:active {
-    
-    transform: scale(0.95);
-    
-    
+#sendmessage {
+  border:1px solid #fff;
+  display:none;
+  text-align:center;
+  margin:10px 0;
+  font-weight:600;
+  margin-bottom:30px;
+  background-color: #EBF6E0;
+  color: #5F9025;
+  border: 1px solid #B3DC82;
+  padding: 13px 40px 13px 18px;
+  border-radius: 3px;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.03);
 }
 
-            
-
-                #izquierda { 
-
-                             width: 100%;
-                             height: 100%;
-                              
-                             box-sizing: border-box;
-                             padding: 20px;
-                    
-                  
-
-                    }
-
-                        #derecha { 
-
-                             float: left;
-                             width: 50%;
-                             height: 600px;
-                          
-                             box-sizing: border-box;
-                            padding: 20px;
-                            background-color: rgba(42,40,64,0.5);
-                              
-
-                    }
-
-
-
-                   footer {
-
-                     width: 800px;
-                     padding: 20px;
-                     box-sizing:border-box;
-                      
-                     margin: 10px auto;
-
-                      
-
-
-
-                     }
-
-                  }
-
-                    @media screen and (max-width: 800px) {
-
-
-                 header{
-
-                             width: 100%;
-                             padding: 0.4em;
-                              
-                             margin: 0.4em auto;
-                             box-sizing: border-box;
-
-                     }
-                        
-                        
-                          main{
-                            width: 100%;
-                            box-sizing:border-box;
-                            margin: 1em auto;
-                            overflow:auto;
-                        }
-
-                        
-            h1 {text-align: center;}
-            
-              p {text-align: center;}
-
- 
-                        
-                        h2 { 
-     
-     text-align: center;
-     margin-bottom: 20px;
-    color: rgba(255,255,255,0.5);
- 
-
-    
-}
-            
-            input { display: block;
-        padding: 10px;
-        width: 100%;
-        margin: 30px 0;
-        font-size: 20px;
-        box-sizing:border-box;
-         
-    
+#sendmessage.show,.show  {
+  display:block;
 }
 
-button{
-    width: 100%; 
-    border: 0;
-    height: 40px;
-    color: white;
-    border-radius: 20px;
-    opacity: 0.7;
-    cursor: pointer;
+#Architecture, #Business, #Chemical, #Communication, #Design, #Technology, #Engineering, #Maritime, #Level, #Stream, #magicsuggest{
+    height: auto;
+    min-height: 40px;
+    width: 94%;
+    float: left;
+    margin-bottom: 30px;
 }
-button { background: linear-gradient(53deg, #d24a58, #2a2840, #a52f3b);
-background-size: 600% 600%;
-
--webkit-animation: AnimationName 30s ease infinite;
--moz-animation: AnimationName 30s ease infinite;
-animation: AnimationName 30s ease infinite;
-
-@-webkit-keyframes AnimationName {
-    0%{background-position:70% 0%}
-    50%{background-position:31% 100%}
-    100%{background-position:70% 0%}
-}
-@-moz-keyframes AnimationName {
-    0%{background-position:70% 0%}
-    50%{background-position:31% 100%}
-    100%{background-position:70% 0%}
-}
-@keyframes AnimationName { 
-    0%{background-position:70% 0%}
-    50%{background-position:31% 100%}
-    100%{background-position:70% 0%}
-}
-
-    
-}
-button:hover {
-    
-    opacity: 1;
-    
-    
-}
-
-
-button:active {
-    
-    transform: scale(0.95);
-    
-    
-}
-
-                        
-                        
-                        
-                        
-                        
-                         #izquierda { 
-
-                             float: none;
-                             width: 100%;
-                             height: 50%;
-                              
-                             box-sizing: border-box;
-                             padding: 0.3em;
-
-
-
-                    }
-
-                         #derecha { 
-
-                             float: none;
-                             width: 100%;
-                             height: 50%;
-                              
-                             box-sizing: border-box;
-                            padding: 2em;
-                             background-color: rgba(42,40,64,0.5);
-
-                    }
-
-
-
-                   footer {
-
-                             width: 100%;
-                             padding: 2em;
-                             margin: 1em auto;
-                             box-sizing: border-box;
-                             
-
-
-
-                     }
-
-
-
-
-
-
-                    }
