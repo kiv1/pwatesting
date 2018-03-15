@@ -33,6 +33,8 @@ $('#submit').on('click', function() {
             $(schoolErrorText).show();
             isFormValid = false;
         }else{
+            var SchoolName = $('#magicsuggest').magicSuggest().getValue();
+            obj['School'] = SchoolName[0];
             $(schoolErrorText).empty();
             $(schoolErrorText).hide(); 
         }
@@ -42,6 +44,8 @@ $('#submit').on('click', function() {
             $(levelErrorText).show();
             isFormValid = false;
         }else{
+            var LevelVal = $('#Level').magicSuggest().getValue();
+            obj['Level'] = LevelVal[0];
             $(levelErrorText).empty();
             $(levelErrorText).hide(); 
         }
@@ -52,9 +56,13 @@ $('#submit').on('click', function() {
             $(streamErrorText).show();
             isFormValid = false;
         }else{
+            var StreamVal = $('#Stream').magicSuggest().getValue();
+            obj['Stream'] = StreamVal[0];
             $(streamErrorText).empty();
             $(streamErrorText).hide(); 
         }
+
+        console.dir(obj);
 
         $('input[type="checkbox"]').each(function() {
             var divName = '#'+ $(this).data("name")+'_SuggestArea';
