@@ -11,14 +11,15 @@
   	<link rel="stylesheet" type="text/css" href="./css/style.css">
     <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'> 
    	<link href="assets/magicsuggest-min.css" rel="stylesheet">
+  	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" rel="stylesheet"/>
 
-<script
-  src="https://code.jquery.com/jquery-1.12.4.min.js"
-  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-  crossorigin="anonymous"></script>	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script
+	  src="https://code.jquery.com/jquery-1.12.4.min.js"
+	  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+	  crossorigin="anonymous"></script>	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="assets/magicsuggest-min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
- 
 </head>
 <body>
 
@@ -180,7 +181,7 @@
 		<div class="form-group">
 			<br/>
 			<span style="line-height:1122%; " class="icon-case"><i class="fa fa-comments-o"></i></span>
-		    <textarea style="width:94%; height:158px; padding-top:15px;" placeholder="Enquiry" name="Enquiry"></textarea>
+		    <textarea id="Enquiry" style="width:94%; height:158px; padding-top:15px;" placeholder="Enquiry" name="Enquiry"></textarea>
 		</div>	
 	</div>
 
@@ -196,7 +197,7 @@
 </html>
 <script type="text/javascript">
 
-	$('input[type="checkbox"]').change(function() {
+	$('input[type="checkbox"]').click(function() {
 	     var divName = '#'+ $(this).data("name")+'_SuggestArea';
 	     var suggestName = '#'+ $(this).data("name");
 
@@ -320,6 +321,24 @@
 	    allowFreeEntries:false,
 	    maxSelection: 1
 	});
+
+	toastr.options = {
+	  "closeButton": true,
+	  "debug": false,
+	  "newestOnTop": false,
+	  "progressBar": true,
+	  "positionClass": "toast-top-right",
+	  "preventDuplicates": false,
+	  "onclick": null,
+	  "showDuration": "300",
+	  "hideDuration": "1000",
+	  "timeOut": "5000",
+	  "extendedTimeOut": "1000",
+	  "showEasing": "swing",
+	  "hideEasing": "linear",
+	  "showMethod": "fadeIn",
+	  "hideMethod": "fadeOut"
+	}
 </script>
 <script src="js/index.js"></script>
 </html>
