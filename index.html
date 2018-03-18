@@ -215,9 +215,12 @@
 	
 	var maritime = ['MARINE ENGINEERING', 'MARITIME BUSINESS', 'NAUTICAL STUDIES'];
 
+	if (document.documentElement.clientWidth > 1025) { pickclick = 'click' }
+	if (document.documentElement.clientWidth < 1025) { pickclick = 'touchstart' }
+
 	function run(){
 
-		$('input[type="checkbox"]').on('click touchstart', function() {
+		$('input[type="checkbox"]').on(pickclick, function() {
 		     var divName = '#'+ $(this).data("name")+'_SuggestArea';
 		     var suggestName = '#'+ $(this).data("name");
 
