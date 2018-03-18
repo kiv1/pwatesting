@@ -217,7 +217,7 @@
 
 	function run(){
 
-		$('input[type="checkbox"]').click(function() {
+		$('input[type="checkbox"]').on('click touchstart', function() {
 		     var divName = '#'+ $(this).data("name")+'_SuggestArea';
 		     var suggestName = '#'+ $(this).data("name");
 
