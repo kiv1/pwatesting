@@ -198,18 +198,6 @@
 </html>
 <script type="text/javascript">
 
-	$('input[type="checkbox"]').click(function() {
-	     var divName = '#'+ $(this).data("name")+'_SuggestArea';
-	     var suggestName = '#'+ $(this).data("name");
-
-	     if(this.checked) {
-	     	$(suggestName).magicSuggest().clear();
-	     	$(divName).show();
-	     }else{
-	     	$(divName).hide();
-	     }
-	 });
-
 	var schoolArray = ['ADMIRALTY SECONDARY SCHOOL','AHMAD IBRAHIM SECONDARY SCHOOL','ANDERSON SECONDARY SCHOOL','ANG MO KIO SECONDARY SCHOOL','ANGLICAN HIGH SCHOOL','ANGLO-CHINESE SCHOOL (BARKER ROAD)','ANGLO-CHINESE SCHOOL (INDEPENDENT)','ASSUMPTION ENGLISH SCHOOL','ASSUMPTION PATHWAY SCHOOL','BARTLEY SECONDARY SCHOOL','BEATTY SECONDARY SCHOOL','BEDOK GREEN SECONDARY SCHOOL','BEDOK SOUTH SECONDARY SCHOOL','BEDOK VIEW SECONDARY SCHOOL','BENDEMEER SECONDARY SCHOOL','BOON LAY SECONDARY SCHOOL','BOWEN SECONDARY SCHOOL','BROADRICK SECONDARY SCHOOL','BUKIT BATOK SECONDARY SCHOOL','BUKIT MERAH SECONDARY SCHOOL','BUKIT PANJANG GOVT. HIGH SCHOOL','BUKIT VIEW SECONDARY SCHOOL','CANBERRA SECONDARY SCHOOL','CATHOLIC HIGH SCHOOL','CEDAR GIRLS\' SECONDARY SCHOOL','CHANGKAT CHANGI SECONDARY SCHOOL','CHIJ KATONG CONVENT','CHIJ SECONDARY (TOA PAYOH)','CHIJ ST. JOSEPH\'S CONVENT','CHIJ ST. NICHOLAS GIRLS\' SCHOOL','CHIJ ST. THERESA\'S CONVENT','CHRIST CHURCH SECONDARY SCHOOL','CHUA CHU KANG SECONDARY SCHOOL','CHUNG CHENG HIGH SCHOOL (MAIN)','CHUNG CHENG HIGH SCHOOL (YISHUN)','CLEMENTI TOWN SECONDARY SCHOOL','COMMONWEALTH SECONDARY SCHOOL','COMPASSVALE SECONDARY SCHOOL','CRESCENT GIRLS\' SCHOOL','CREST SECONDARY SCHOOL','DAMAI SECONDARY SCHOOL','DEYI SECONDARY SCHOOL','DUNEARN SECONDARY SCHOOL','DUNMAN HIGH SCHOOL','DUNMAN SECONDARY SCHOOL','EAST SPRING SECONDARY SCHOOL','EAST VIEW SECONDARY SCHOOL','EDGEFIELD SECONDARY SCHOOL','EVERGREEN SECONDARY SCHOOL','FAIRFIELD METHODIST SCHOOL (SECONDARY)','FAJAR SECONDARY SCHOOL','FUCHUN SECONDARY SCHOOL','FUHUA SECONDARY SCHOOL','GAN ENG SENG SCHOOL','GEYLANG METHODIST SCHOOL (SECONDARY)','GREENDALE SECONDARY SCHOOL','GREENRIDGE SECONDARY SCHOOL','GUANGYANG SECONDARY SCHOOL','HAI SING CATHOLIC SCHOOL','HILLGROVE SECONDARY SCHOOL','HOLY INNOCENTS\' HIGH SCHOOL','HONG KAH SECONDARY SCHOOL','HOUGANG SECONDARY SCHOOL','HUA YI SECONDARY SCHOOL','HWA CHONG INSTITUTION','JUNYUAN SECONDARY SCHOOL','JURONG SECONDARY SCHOOL','JURONG WEST SECONDARY SCHOOL','JURONGVILLE SECONDARY SCHOOL','JUYING SECONDARY SCHOOL','KENT RIDGE SECONDARY SCHOOL','KRANJI SECONDARY SCHOOL','KUO CHUAN PRESBYTERIAN SECONDARY SCHOOL','LOYANG VIEW SECONDARY SCHOOL','MANJUSRI SECONDARY SCHOOL','MARIS STELLA HIGH SCHOOL','MARSILING SECONDARY SCHOOL','MAYFLOWER SECONDARY SCHOOL','MERIDIAN SECONDARY SCHOOL','METHODIST GIRLS\' SCHOOL (SECONDARY)','MONTFORT SECONDARY SCHOOL','NAN CHIAU HIGH SCHOOL','NAN HUA HIGH SCHOOL','NANYANG GIRLS\' HIGH SCHOOL','NATIONAL JUNIOR COLLEGE','NAVAL BASE SECONDARY SCHOOL','NEW TOWN SECONDARY SCHOOL','NGEE ANN SECONDARY SCHOOL','NORTH VISTA SECONDARY SCHOOL','NORTHBROOKS SECONDARY SCHOOL','NORTHLAND SECONDARY SCHOOL','NORTHLIGHT SCHOOL','NUS HIGH SCHOOL OF MATHEMATICS AND SCIENCE','ORCHID PARK SECONDARY SCHOOL','OUTRAM SECONDARY SCHOOL','PASIR RIS CREST SECONDARY SCHOOL','PASIR RIS SECONDARY SCHOOL','PAYA LEBAR METHODIST GIRLS\' SCHOOL (SECONDARY)','PEI HWA SECONDARY SCHOOL','PEICAI SECONDARY SCHOOL','PEIRCE SECONDARY SCHOOL','PING YI SECONDARY SCHOOL','PRESBYTERIAN HIGH SCHOOL','PUNGGOL SECONDARY SCHOOL','QUEENSTOWN SECONDARY SCHOOL','QUEENSWAY SECONDARY SCHOOL','RAFFLES GIRLS\' SCHOOL (SECONDARY)','RAFFLES INSTITUTION','REGENT SECONDARY SCHOOL','RIVER VALLEY HIGH SCHOOL','RIVERSIDE SECONDARY SCHOOL','SCHOOL OF SCIENCE AND TECHNOLOGY, SINGAPORE','SCHOOL OF THE ARTS, SINGAPORE','SEMBAWANG SECONDARY SCHOOL','SENG KANG SECONDARY SCHOOL','SERANGOON GARDEN SECONDARY SCHOOL','SERANGOON SECONDARY SCHOOL','SHUQUN SECONDARY SCHOOL','SINGAPORE CHINESE GIRLS\' SCHOOL','SINGAPORE SPORTS SCHOOL','SPECTRA SECONDARY SCHOOL','SPRINGFIELD SECONDARY SCHOOL','ST. ANDREW\'S SECONDARY SCHOOL','ST. ANTHONY\'S CANOSSIAN SECONDARY SCHOOL','ST. GABRIEL\'S SECONDARY SCHOOL','ST. HILDA\'S SECONDARY SCHOOL','ST. JOSEPH\'S INSTITUTION','ST. MARGARET\'S SECONDARY SCHOOL','ST. PATRICK\'S SCHOOL','SWISS COTTAGE SECONDARY SCHOOL','TAMPINES SECONDARY SCHOOL','TANGLIN SECONDARY SCHOOL','TANJONG KATONG GIRLS\' SCHOOL','TANJONG KATONG SECONDARY SCHOOL','TECK WHYE SECONDARY SCHOOL','TEMASEK JUNIOR COLLEGE','TEMASEK SECONDARY SCHOOL','UNITY SECONDARY SCHOOL','VICTORIA SCHOOL','WEST SPRING SECONDARY SCHOOL','WESTWOOD SECONDARY SCHOOL','WHITLEY SECONDARY SCHOOL','WOODGROVE SECONDARY SCHOOL','WOODLANDS RING SECONDARY SCHOOL','WOODLANDS SECONDARY SCHOOL','XINMIN SECONDARY SCHOOL','YIO CHU KANG SECONDARY SCHOOL','YISHUN SECONDARY SCHOOL','YISHUN TOWN SECONDARY SCHOOL','YUAN CHING SECONDARY SCHOOL','YUHUA SECONDARY SCHOOL','YUSOF ISHAK SECONDARY SCHOOL','YUYING SECONDARY SCHOOL','ZHENGHUA SECONDARY SCHOOL','ZHONGHUA SECONDARY SCHOOL'];
 	
 	var architecture = ['ARCHITECTURE', 'CIVIL ENGINEERING WITH BUSINESS', 'FACILITIES MANAGEMENT', 'FACILITIES MANAGEMENT', 'INTEGRATED EVENTS & PROJECT MANAGEMENT', 'LANDSCAPE ARCHITECTURE'];
@@ -228,118 +216,132 @@
 	
 	var maritime = ['MARINE ENGINEERING', 'MARITIME BUSINESS', 'NAUTICAL STUDIES'];
 
-	 var ms = $('#magicsuggest').magicSuggest({    
-	 	placeholder: 'School',
-	    data: schoolArray,
-	    required: true,
-	    allowFreeEntries:false,
-	    maxSelection: 1
-	});
+	function run(){
 
-	$('#Architecture').magicSuggest({
-		placeholder: 'Course',
-		expandOnFocus:true,    
-	    data: architecture,
-	    allowFreeEntries:false
-	});
+		$('input[type="checkbox"]').click(function() {
+		     var divName = '#'+ $(this).data("name")+'_SuggestArea';
+		     var suggestName = '#'+ $(this).data("name");
 
-	$('#Business').magicSuggest({    
-	    placeholder: 'Course',
-	    expandOnFocus:true,    
-	    data: business,
-	    allowFreeEntries:false
-	});
+		     if(this.checked) {
+		     	$(suggestName).magicSuggest().clear();
+		     	$(divName).show();
+		     }else{
+		     	$(divName).hide();
+		     }
+		 });
 
-	$('#Chemical').magicSuggest({    
-	    placeholder: 'Course', 
-	    expandOnFocus:true,   
-	    data: chemical,
-	    allowFreeEntries:false
-	});
-	
-	$('#Communication').magicSuggest({    
-	    placeholder: 'Course',
-	    expandOnFocus:true,    
-	    data: communication,
-	    allowFreeEntries:false
-	});
+	 	var ms = $('#magicsuggest').magicSuggest({    
+		 	placeholder: 'School',
+		    data: schoolArray,
+		    required: true,
+		    allowFreeEntries:false,
+		    maxSelection: 1
+		});
 
-	$('#Design').magicSuggest({    
-	    placeholder: 'Course',
-	    expandOnFocus:true,    
-	    data: design,
-	    allowFreeEntries:false
-	});
+		$('#Architecture').magicSuggest({
+			placeholder: 'Course',
+			expandOnFocus:true,    
+		    data: architecture,
+		    allowFreeEntries:false
+		});
 
-	$('#Technology').magicSuggest({
-		placeholder: 'Course',
-		expandOnFocus:true,    
-	    data: technology,
-	    allowFreeEntries:false
-	});
+		$('#Business').magicSuggest({    
+		    placeholder: 'Course',
+		    expandOnFocus:true,    
+		    data: business,
+		    allowFreeEntries:false
+		});
 
-	$('#Engineering').magicSuggest({    
-		placeholder: 'Course',
-		expandOnFocus:true,
-	    data: engineering,
-	    allowFreeEntries:false
-	});
+		$('#Chemical').magicSuggest({    
+		    placeholder: 'Course', 
+		    expandOnFocus:true,   
+		    data: chemical,
+		    allowFreeEntries:false
+		});
+		
+		$('#Communication').magicSuggest({    
+		    placeholder: 'Course',
+		    expandOnFocus:true,    
+		    data: communication,
+		    allowFreeEntries:false
+		});
 
-	$('#Maritime').magicSuggest({    
-	 	placeholder: 'Course',
-	 	expandOnFocus:true,
-	    data: maritime,
-	    allowFreeEntries:false
-	});
+		$('#Design').magicSuggest({    
+		    placeholder: 'Course',
+		    expandOnFocus:true,    
+		    data: design,
+		    allowFreeEntries:false
+		});
 
-	var levelSug = $('#Level').magicSuggest({    
-	 	placeholder: 'Level',
-	 	expandOnFocus:true,
-	    data: ['1','2','3','4','5'],
-	    required: true,
-	    allowFreeEntries:false,
-	    maxSelection: 1
-	});
-	$(levelSug).on('selectionchange', function(e,m){
-	  let v = this.getValue();
-		if(v == 5){
-	  		streamSug.clear(false);
-	  		streamSug.setValue(['Normal Academic']);
-	  		streamSug.disable();
-	  		streamSug.collapse();
-	  	}else{
-	  		streamSug.enable();
-	  		streamSug.clear(false);
-	  		streamSug.collapse();
-	  }
-	});
+		$('#Technology').magicSuggest({
+			placeholder: 'Course',
+			expandOnFocus:true,    
+		    data: technology,
+		    allowFreeEntries:false
+		});
 
-	var streamSug = $('#Stream').magicSuggest({    
-	 	placeholder: 'Stream',
-	 	expandOnFocus:true,
-	    data: ['Express', 'Normal Academic', 'Normal Technical'],
-	    required: true,
-	    allowFreeEntries:false,
-	    maxSelection: 1
-	});
+		$('#Engineering').magicSuggest({    
+			placeholder: 'Course',
+			expandOnFocus:true,
+		    data: engineering,
+		    allowFreeEntries:false
+		});
 
-	toastr.options = {
-	  "closeButton": true,
-	  "debug": false,
-	  "newestOnTop": false,
-	  "progressBar": true,
-	  "positionClass": "toast-top-right",
-	  "preventDuplicates": false,
-	  "onclick": null,
-	  "showDuration": "300",
-	  "hideDuration": "1000",
-	  "timeOut": "5000",
-	  "extendedTimeOut": "1000",
-	  "showEasing": "swing",
-	  "hideEasing": "linear",
-	  "showMethod": "fadeIn",
-	  "hideMethod": "fadeOut"
-	}
-</script>
+		$('#Maritime').magicSuggest({    
+		 	placeholder: 'Course',
+		 	expandOnFocus:true,
+		    data: maritime,
+		    allowFreeEntries:false
+		});
+
+		var levelSug = $('#Level').magicSuggest({    
+		 	placeholder: 'Level',
+		 	expandOnFocus:true,
+		    data: ['1','2','3','4','5'],
+		    required: true,
+		    allowFreeEntries:false,
+		    maxSelection: 1
+		});
+		$(levelSug).on('selectionchange', function(e,m){
+		  let v = this.getValue();
+			if(v == 5){
+		  		streamSug.clear(false);
+		  		streamSug.setValue(['Normal Academic']);
+		  		streamSug.disable();
+		  		streamSug.collapse();
+		  	}else{
+		  		streamSug.enable();
+		  		streamSug.clear(false);
+		  		streamSug.collapse();
+		  }
+		});
+
+		var streamSug = $('#Stream').magicSuggest({    
+		 	placeholder: 'Stream',
+		 	expandOnFocus:true,
+		    data: ['Express', 'Normal Academic', 'Normal Technical'],
+		    required: true,
+		    allowFreeEntries:false,
+		    maxSelection: 1
+		});
+
+		toastr.options = {
+		  "closeButton": true,
+		  "debug": false,
+		  "newestOnTop": false,
+		  "progressBar": true,
+		  "positionClass": "toast-top-right",
+		  "preventDuplicates": false,
+		  "onclick": null,
+		  "showDuration": "300",
+		  "hideDuration": "1000",
+		  "timeOut": "5000",
+		  "extendedTimeOut": "1000",
+		  "showEasing": "swing",
+		  "hideEasing": "linear",
+		  "showMethod": "fadeIn",
+		  "hideMethod": "fadeOut"
+		}
+	}</script>
 <script src="js/index.js"></script>
 </html>

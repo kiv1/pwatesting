@@ -4,6 +4,8 @@ var schoolErrorText = $('.school-group .validation');
 var levelErrorText = $('.Level-group .validation');
 var streamErrorText = $('.Stream-group .validation');
 
+run();
+
 $('#submit').on('click', function() {
     try {
         isFormValid = true;
