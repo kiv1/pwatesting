@@ -40,8 +40,6 @@ $('#submit').on('click', function() {
             }
         });
 
-        console.dir(obj);
-
         if(!$('#magicsuggest').magicSuggest().isValid()){
             $(schoolErrorText).empty();
             $(schoolErrorText).append('Please fill up this field correctly!');
@@ -77,8 +75,6 @@ $('#submit').on('click', function() {
             $(streamErrorText).hide(); 
         }
 
-        console.dir(obj);
-
         $('input[type="checkbox"]').each(function() {
             var divName = '#'+ $(this).data("name")+'_SuggestArea';
             var suggestName = '#'+ $(this).data("name");
@@ -86,7 +82,6 @@ $('#submit').on('click', function() {
 
              if(this.checked) {
                 var selected = $(suggestName).magicSuggest().getValue();
-                console.dir(selected);
                 
                 if(selected.length==0){
                     errorText.append('Please fill up this field correctly!');
@@ -111,8 +106,6 @@ $('#submit').on('click', function() {
             obj['Enquiry'] = enquiry.val();
         }
 
-        console.dir(obj);
-
         if(isFormValid){
             addData(obj);
             clearAll();
@@ -122,7 +115,6 @@ $('#submit').on('click', function() {
         }
 
     } catch (error) {
-        console.dir(error);
     }
 });
 
@@ -130,7 +122,6 @@ $('#submit').on('click', function() {
 document.querySelector('#generate').addEventListener('click', function() {
     //Generate excel
     var arrayOfData = getAllData();
-    console.dir(arrayOfData);
     downloadCSV('Enquiry', arrayOfData);
 });
 
@@ -178,7 +169,6 @@ function clearData() {
 
 
 function getAllData() {
-    console.log('getalldata');
     var arrOfDataStr = []
     var arrOfDataJson = []
     for (var i = 0; i < localStorage.length; i++) {
