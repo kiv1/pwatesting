@@ -229,9 +229,10 @@ function convertArrayOfObjectsToCSV(args) {
         var csv = convertArrayOfObjectsToCSV({
             data: stockData
         });
+
         if (csv == null) return;
 
-        filename = name || 'export.csv';
+        filename = 'export.csv';
 
         if (!csv.match(/^data:text\/csv/i)) {
             csv = 'data:text/csv;charset=utf-8,' + csv;
