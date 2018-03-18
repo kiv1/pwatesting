@@ -40,7 +40,7 @@ $('#submit').on('click', function() {
             }
         });
 
-        if(!$('#magicsuggest').magicSuggest().isValid()){
+        /*if(!$('#magicsuggest').magicSuggest().isValid()){
             $(schoolErrorText).empty();
             $(schoolErrorText).append('Please fill up this field correctly!');
             $(schoolErrorText).show();
@@ -97,7 +97,7 @@ $('#submit').on('click', function() {
                 errorText.empty();
                 errorText.hide(); 
             }
-        });
+        });*/
 
         var enquiry = $('Enquiry');
         if($.trim(enquiry.val()).length == 0){
