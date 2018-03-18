@@ -7,7 +7,7 @@ var streamErrorText = $('.Stream-group .validation');
 run();
 
 
-$('#submit').on(pickclick, function() {
+$('#submit').on('click', function() {
     try {
         isFormValid = true;
         $('.personalEnquiry').each(function(){
@@ -120,7 +120,7 @@ $('#submit').on(pickclick, function() {
 });
 
 
-$('#generate').on(pickclick, function() {
+$('#generate').on('click', function() {
     //Generate excel
     var arrayOfData = getAllData();
     downloadCSV('Enquiry', arrayOfData);
