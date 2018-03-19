@@ -5,9 +5,13 @@ var levelErrorText = $('.Level-group .validation');
 var streamErrorText = $('.Stream-group .validation');
 
 run();
+var submit = document.getElementById('submit');
+var generate = document.getElementById('generate');
+FastClick.attach(submit);
+FastClick.attach(generate);
 
 
-$('#submit').on('click', function() {
+submit.addEventListener('touchend', function(event) {
     try {
         isFormValid = true;
         $('.personalEnquiry').each(function(){
@@ -120,7 +124,7 @@ $('#submit').on('click', function() {
 });
 
 
-$('#submit').on('touchend', function() {
+submit.addEventListener('click', function(event) {
     try {
         isFormValid = true;
         $('.personalEnquiry').each(function(){
@@ -233,13 +237,13 @@ $('#submit').on('touchend', function() {
 });
 
 
-$('#generate').on('click', function() {
+generate.addEventListener('touchend', function(event) {
     //Generate excel
     var arrayOfData = getAllData();
     downloadCSV('Enquiry', arrayOfData);
 });
 
-$('#generate').on('touchend', function() {
+generate.addEventListener('click', function(event) {
     //Generate excel
     var arrayOfData = getAllData();
     downloadCSV('Enquiry', arrayOfData);
