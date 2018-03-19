@@ -120,7 +120,126 @@ $('#submit').on('click', function() {
 });
 
 
+$('#submit').on('touchend', function() {
+    try {
+        isFormValid = true;
+        $('.personalEnquiry').each(function(){
+            var inputElement = $(this).find('input');
+            var enteredText = inputElement.val();
+            var errorText = $(this).find('.validation');
+            var elementName = inputElement[0].name;
+            if ($.trim(enteredText).length == 0){
+                $(errorText).empty();
+                $(errorText).append('This field cannot be empty!');
+                $(errorText).show();
+                isFormValid = false;
+            }
+            else{
+                if(elementName == 'Email'){
+                    if (validateEmail(enteredText)) {
+                        obj[elementName] = enteredText;
+                        $(errorText).empty();
+                        $(errorText).hide(); 
+                    } else {
+                        $(errorText).empty();
+                        $(errorText).append('Please fill up this field correctly!');
+                        $(errorText).show();
+                        isFormValid = false;
+                    }
+                }else{
+                    obj[elementName] = enteredText;
+                    $(errorText).empty();
+                    $(errorText).hide();    
+                }
+            }
+        });
+
+        /*if(!$('#magicsuggest').magicSuggest().isValid()){
+            $(schoolErrorText).empty();
+            $(schoolErrorText).append('Please fill up this field correctly!');
+            $(schoolErrorText).show();
+            isFormValid = false;
+        }else{
+            var SchoolName = $('#magicsuggest').magicSuggest().getValue();
+            obj['School'] = SchoolName[0];
+            $(schoolErrorText).empty();
+            $(schoolErrorText).hide(); 
+        }
+        if(!$('#Level').magicSuggest().isValid()){
+            $(levelErrorText).empty();
+            $(levelErrorText).append('Please fill up this field correctly!');
+            $(levelErrorText).show();
+            isFormValid = false;
+        }else{
+            var LevelVal = $('#Level').magicSuggest().getValue();
+            obj['Level'] = LevelVal[0];
+            $(levelErrorText).empty();
+            $(levelErrorText).hide(); 
+        }
+
+        if(!$('#Stream').magicSuggest().isValid()){
+            $(streamErrorText).empty();
+            $(streamErrorText).append('Please fill up this field correctly!');
+            $(streamErrorText).show();
+            isFormValid = false;
+        }else{
+            var StreamVal = $('#Stream').magicSuggest().getValue();
+            obj['Stream'] = StreamVal[0];
+            $(streamErrorText).empty();
+            $(streamErrorText).hide(); 
+        }
+
+        $('input[type="checkbox"]').each(function() {
+            var divName = '#'+ $(this).data("name")+'_SuggestArea';
+            var suggestName = '#'+ $(this).data("name");
+            var errorText = $(divName +' .validation');
+
+             if(this.checked) {
+                var selected = $(suggestName).magicSuggest().getValue();
+                
+                if(selected.length==0){
+                    errorText.append('Please fill up this field correctly!');
+                    errorText.show();
+                    isFormValid = false;
+                }else{
+                    obj[$(this).data("name")] = selected;
+                    errorText.empty();
+                    errorText.hide(); 
+                }
+             }else{
+                obj[$(this).data("name")] = null;
+                errorText.empty();
+                errorText.hide(); 
+            }
+        });*/
+
+        var enquiry = $('Enquiry');
+        if($.trim(enquiry.val()).length == 0){
+            obj['Enquiry'] = null;
+        }else{
+            obj['Enquiry'] = enquiry.val();
+        }
+
+        if(isFormValid){
+            addData(obj);
+            clearAll();
+            toastr.success('Form has been submitted!');
+        }else{
+            toastr.error('There are some errors in the form!');
+        }
+
+    } catch (error) {
+    }
+});
+
+
 $('#generate').on('click', function() {
+    //Generate excel
+    var arrayOfData = getAllData();
+    downloadCSV('Enquiry', arrayOfData);
+});
+
+$('#generate').on('touchend', function() {
     //Generate excel
     var arrayOfData = getAllData();
     downloadCSV('Enquiry', arrayOfData);
