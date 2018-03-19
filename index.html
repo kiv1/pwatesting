@@ -19,6 +19,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="assets/magicsuggest-min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<script src="js/simple-excel.js"></script>
+
 </head>
 <body>
 
@@ -213,7 +215,9 @@
 	var engineering = ['AERONAUTICAL ENGINEERING', 'AEROSPACE ELECTRONICS', 'BIOENGINEERING', 'COMPUTER ENGINEERING', 'ELECTRICAL & ELECTRONIC ENGINEERING', 'ENERGY SYSTEMS & MANAGEMENT', 'ENGINEERING SYSTEMS', 'ENGINEERING WITH BUSINESS', 'ENGINEERING PROGRAMME', 'MECHATRONICS AND ROBOTICS', 'MECHANICAL ENGINEERING']
 	
 	var maritime = ['MARINE ENGINEERING', 'MARITIME BUSINESS', 'NAUTICAL STUDIES'];
-
+	window.onload = function(e){
+		run();
+	 }
 	function run(){
 
 		$('input[type="checkbox"]').change(function() {

@@ -4,13 +4,6 @@ var schoolErrorText = $('.school-group .validation');
 var levelErrorText = $('.Level-group .validation');
 var streamErrorText = $('.Stream-group .validation');
 
-run();
-
-
-/*$('#submit').on('touchstart click', function() {
-    validateForm();
-});*/
-
 
 function validateForm(){
     try {
@@ -187,35 +180,45 @@ function getAllData() {
     for (var i = 0; i < arrOfDataStr.length; i++) {
         arrOfDataJson.push(JSON.parse(arrOfDataStr[i]));
     }
-    clearData(arrOfDataJson);
+    //clearData(arrOfDataJson);
     return arrOfDataJson;
 }
 
 function convertArrayOfObjectsToCSV(args) {  
-        var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+        var result = [];
+        var keys, data;
+
+        var headers = [];
 
         data = args.data || null;
         if (data == null || !data.length) {
             return null;
         }
 
-        columnDelimiter = args.columnDelimiter || ',';
-        lineDelimiter = args.lineDelimiter || '\n';
-
         keys = Object.keys(data[0]);
+        //result = '';
+        //result += keys.join(columnDelimiter);
+        //result += lineDelimiter;
 
-        result = '';
-        result += keys.join(columnDelimiter);
-        result += lineDelimiter;
+        keys.forEach(function(keyName) {
+            var head = {};
+            head['value'] = keyName;
+            head['type'] = 'string';
+            headers.push(head);
+        });
+
+        result.push(headers);
 
         data.forEach(function(item) {
-            ctr = 0;
+            var row = [];
             keys.forEach(function(key) {
-                if (ctr > 0) result += columnDelimiter;
-                result += '"'+item[key]+'"';
-                ctr++;
+                var column = [];
+                column['value'] = item[key];
+                column['type'] = 'string';
+                row.push(column);
             });
-            result += lineDelimiter;
+            result.push(row);
+
         });
 
         return result;
@@ -232,16 +235,14 @@ function convertArrayOfObjectsToCSV(args) {
             var csv = convertArrayOfObjectsToCSV({
                 data: stockData
             });
-
-            if (csv == null) return;
-
-            filename = 'export.csv';
-
-            if (!csv.match(/^data:text\/csv/i)) {
-                csv = 'data:text/csv;charset=utf-8,' + csv;
-            }
-            data = encodeURI(csv);
-
+            console.log(csv);
+            var config = {
+              filename: 'TESTING',
+              sheet: {
+                data: csv
+              }
+            };
+            zipcelx(config);
             //var blob = new Blob([csv]);
             //window.navigator.msSaveBlob(blob, "filename.csv");
 
@@ -257,11 +258,12 @@ function convertArrayOfObjectsToCSV(args) {
                 document.body.removeChild(a);
             }*/
 
-            link = document.createElement('a');
+            /*link = document.createElement('a');
             link.setAttribute('href', data);
             link.setAttribute('download', filename+'.csv');
-            link.click();
+            link.click();*/
         }catch(err){
+            console.log(err);
             toastr.error(err);
         }
     }
