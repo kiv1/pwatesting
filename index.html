@@ -186,8 +186,8 @@
 
 	</div>
 
-	<button id="submit" type="button" class="bouton-contact">Send</button>
-	<button id="generate" type="button" class="bouton-contact">Generate</button>
+	<button style="cursor: pointer;" onclick="validateForm();" id="submit" type="button" class="bouton-contact">Send</button>
+	<button style="cursor: pointer;" onclick="downloadCSVClick();" id="generate" type="button" class="bouton-contact">Generate</button>
 </form>	
 
 
@@ -216,7 +216,7 @@
 
 	function run(){
 
-		$('input[type="checkbox"]').on('touchstart click', function() {
+		$('input[type="checkbox"]').change(function() {
 		     var divName = '#'+ $(this).data("name")+'_SuggestArea';
 		     var suggestName = '#'+ $(this).data("name");
 

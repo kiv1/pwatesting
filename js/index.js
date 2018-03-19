@@ -7,7 +7,12 @@ var streamErrorText = $('.Stream-group .validation');
 run();
 
 
-$('#submit').on('touchstart click', function() {
+/*$('#submit').on('touchstart click', function() {
+    validateForm();
+});*/
+
+
+function validateForm(){
     try {
         isFormValid = true;
         $('.personalEnquiry').each(function(){
@@ -114,17 +119,19 @@ $('#submit').on('touchstart click', function() {
         }else{
             toastr.error('There are some errors in the form!');
         }
-
     } catch (error) {
     }
-});
+}
+
+/*$('#generate').on('touchstart click', function() {
+    downloadCSVClick();
+});*/
 
 
-$('#generate').on('touchstart click', function() {
-    //Generate excel
+function downloadCSVClick(){
     var arrayOfData = getAllData();
     downloadCSV('Enquiry', arrayOfData);
-});
+}
 
 function clearAll(){
     $('.personalEnquiry').each(function(){
