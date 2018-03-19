@@ -120,6 +120,7 @@ function validateForm(){
             toastr.error('There are some errors in the form!');
         }
     } catch (error) {
+
     }
 }
 
@@ -143,7 +144,7 @@ function clearAll(){
 
     $('.validation').hide();
 
-    levelSug.clear();
+    /*levelSug.clear();
     levelSug.collapse();
     streamSug.clear();
     streamSug.collapse();
@@ -156,7 +157,7 @@ function clearAll(){
         var suggestName = '#'+ $(this).data("name");
         $(suggestName).magicSuggest().clear();
         $(divName).hide();
-    });
+    });*/
 }
 
 function uuidv4() {
@@ -235,13 +236,27 @@ function convertArrayOfObjectsToCSV(args) {
 
         filename = 'export.csv';
 
-        if (!csv.match(/^data:text\/csv/i)) {
+        /*if (!csv.match(/^data:text\/csv/i)) {
             csv = 'data:text/csv;charset=utf-8,' + csv;
         }
-        data = encodeURI(csv);
+        data = encodeURI(csv);*/
 
-        link = document.createElement('a');
+        var blob = new Blob([csv]);
+        if (window.navigator.msSaveOrOpenBlob)  // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
+            window.navigator.msSaveBlob(blob, "filename.csv");
+        else
+        {
+            var a = window.document.createElement("a");
+            a.href = window.URL.createObjectURL(blob, {type: "text/plain"});
+            a.download = "filename.csv";
+            document.body.appendChild(a);
+            a.click();  // IE: "Access is denied"; see: https://connect.microsoft.com/IE/feedback/details/797361/ie-10-treats-blob-url-as-cross-origin-and-denies-access
+            document.body.removeChild(a);
+        }
+
+        /*link = document.createElement('a');
         link.setAttribute('href', data);
         link.setAttribute('download', filename+'.csv');
-        link.click();
+        link.click();*/
     }
+
