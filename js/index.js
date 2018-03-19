@@ -138,6 +138,9 @@ function clearAll(){
             var inputElement = $(this).find('input');
             inputElement.val('');
     });
+
+    $('#Enquiry').val('');
+
     $('.validation').hide();
 
     levelSug.clear();
@@ -154,8 +157,6 @@ function clearAll(){
         $(suggestName).magicSuggest().clear();
         $(divName).hide();
     });
-
-    $('#Enquiry').val('');
 }
 
 function uuidv4() {
