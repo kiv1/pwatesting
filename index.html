@@ -305,7 +305,7 @@
 		    maxSelection: 1
 		});
 		$(levelSug).on('selectionchange', function(e,m){
-		  let v = this.getValue();
+		  var v = this.getValue();
 			if(v == 5){
 		  		streamSug.clear(false);
 		  		streamSug.setValue(['Normal Academic']);
