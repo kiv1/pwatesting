@@ -180,7 +180,7 @@ function getAllData() {
     for (var i = 0; i < arrOfDataStr.length; i++) {
         arrOfDataJson.push(JSON.parse(arrOfDataStr[i]));
     }
-    //clearData(arrOfDataJson);
+    clearData(arrOfDataJson);
     return arrOfDataJson;
 }
 
