@@ -39,7 +39,7 @@ function validateForm(){
             }
         });
 
-        /*if(!$('#magicsuggest').magicSuggest().isValid()){
+        if(!$('#magicsuggest').magicSuggest().isValid()){
             $(schoolErrorText).empty();
             $(schoolErrorText).append('Please fill up this field correctly!');
             $(schoolErrorText).show();
@@ -96,7 +96,7 @@ function validateForm(){
                 errorText.empty();
                 errorText.hide(); 
             }
-        });*/
+        });
 
         var enquiry = $('Enquiry');
         if($.trim(enquiry.val()).length == 0){
@@ -137,7 +137,7 @@ function clearAll(){
 
     $('.validation').hide();
 
-    /*levelSug.clear();
+    levelSug.clear();
     levelSug.collapse();
     streamSug.clear();
     streamSug.collapse();
@@ -150,7 +150,7 @@ function clearAll(){
         var suggestName = '#'+ $(this).data("name");
         $(suggestName).magicSuggest().clear();
         $(divName).hide();
-    });*/
+    });
 }
 
 function uuidv4() {
