@@ -137,12 +137,12 @@ function clearAll(){
 
     $('.validation').hide();
 
-    levelSug.clear();
-    levelSug.collapse();
-    streamSug.clear();
-    streamSug.collapse();
-    ms.clear();
-    ms.collapse();
+    $('#Level').magicSuggest().clear();
+    $('#Level').magicSuggest().collapse();
+    $('#Stream').magicSuggest().clear();
+    $('#Stream').magicSuggest().collapse();
+    $('#magicsuggest').magicSuggest().clear();
+    $('#magicsuggest').magicSuggest().collapse();
     
     $('input[type="checkbox"]').each(function() {
         this.checked = false;
