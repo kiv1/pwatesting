@@ -124,7 +124,7 @@ function validateForm(){
 
 function downloadCSVClick(){
     var arrayOfData = getAllData();
-    clearData(arrOfDataJson);
+    clearData(arrayOfData);
     downloadCSV('Enquiry', arrayOfData);
 }
 
