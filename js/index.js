@@ -98,7 +98,7 @@ function validateForm(){
             }
         });
 
-        var enquiry = $('Enquiry');
+        var enquiry = $('#Enquiry');
         if($.trim(enquiry.val()).length == 0){
             obj['Enquiry'] = null;
         }else{
@@ -124,6 +124,7 @@ function validateForm(){
 
 function downloadCSVClick(){
     var arrayOfData = getAllData();
+    clearData(arrOfDataJson);
     downloadCSV('Enquiry', arrayOfData);
 }
 
@@ -180,7 +181,6 @@ function getAllData() {
     for (var i = 0; i < arrOfDataStr.length; i++) {
         arrOfDataJson.push(JSON.parse(arrOfDataStr[i]));
     }
-    clearData(arrOfDataJson);
     return arrOfDataJson;
 }
 
@@ -235,36 +235,35 @@ function convertArrayOfObjectsToCSV(args) {
             var csv = convertArrayOfObjectsToCSV({
                 data: stockData
             });
-            console.log(csv);
-            var config = {
-              filename: 'TESTING',
-              sheet: {
-                data: csv
-              }
-            };
-            zipcelx(config);
-            //var blob = new Blob([csv]);
-            //window.navigator.msSaveBlob(blob, "filename.csv");
-
-            /*if (window.navigator.msSaveOrOpenBlob)  // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
-                window.navigator.msSaveBlob(blob, "filename.csv");
-            else
-            {
-                var a = window.document.createElement("a");
-                a.href = window.URL.createObjectURL(blob, {type: "text/plain"});
-                a.download = "filename.csv";
-                document.body.appendChild(a);
-                a.click();  // IE: "Access is denied"; see: https://connect.microsoft.com/IE/feedback/details/797361/ie-10-treats-blob-url-as-cross-origin-and-denies-access
-                document.body.removeChild(a);
-            }*/
-
-            /*link = document.createElement('a');
-            link.setAttribute('href', data);
-            link.setAttribute('download', filename+'.csv');
-            link.click();*/
+            if(csv){
+                var config = {
+                  filename: 'TESTING',
+                  sheet: {
+                    data: csv
+                  }
+                };
+                zipcelx(config);
+            }else{
+                toastr.warning('There is no data!!');
+            }
         }catch(err){
             console.log(err);
             toastr.error(err);
+        }
+    }
+
+    function login(){
+        var dd = new Date();
+        var d = dd.getDate();
+        var n = dd.getHours();
+        var x = d+n;
+        var u = $('#Password').val();
+        var t = x+'SingaporePoly';
+        if(t == u){
+            $('body').empty();
+            $('body').append('<button style="cursor: pointer;" onclick="downloadCSVClick();" id="generate" type="button" class="bouton-contact">Generate</button>');
+        }else{
+            toastr.error('Fail!');
         }
     }
 
