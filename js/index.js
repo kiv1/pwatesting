@@ -31,6 +31,17 @@ function validateForm(){
                         $(errorText).show();
                         isFormValid = false;
                     }
+                } else if(elementName == 'Mobile'){
+                    
+                    if((enteredText.charAt(0) != '+') || (enteredText.length < 10)){
+                        console.log(enteredText.charAt(0))
+                        console.log(enteredText.length)
+                        $(errorText).empty();
+                        $(errorText).append('Please fill up this field correctly! E.g(+65XXXXXXXX) where XXXXXXXX is your number.');
+                        $(errorText).show();
+                        isFormValid = false;
+                    }
+
                 }else{
                     obj[elementName] = enteredText;
                     $(errorText).empty();
