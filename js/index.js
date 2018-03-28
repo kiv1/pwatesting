@@ -20,6 +20,10 @@ function validateForm(){
                 isFormValid = false;
             }
             else{
+                obj[elementName] = enteredText;
+                $(errorText).empty();
+                $(errorText).hide();   
+
                 if(elementName == 'Email'){
                     if (validateEmail(enteredText)) {
                         obj[elementName] = enteredText;
@@ -32,8 +36,8 @@ function validateForm(){
                         isFormValid = false;
                     }
                 } else if(elementName == 'Mobile'){
-                    
-                    if((enteredText.charAt(0) != '+') || (enteredText.length < 10)){
+                    console.log("in")
+                    if((enteredText.charAt(0) != '+') || (enteredText.length < 11)){
                         console.log(enteredText.charAt(0))
                         console.log(enteredText.length)
                         $(errorText).empty();
@@ -41,11 +45,6 @@ function validateForm(){
                         $(errorText).show();
                         isFormValid = false;
                     }
-
-                }else{
-                    obj[elementName] = enteredText;
-                    $(errorText).empty();
-                    $(errorText).hide();    
                 }
             }
         });
