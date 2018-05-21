@@ -131,10 +131,9 @@ function validateForm(){
     downloadCSVClick();
 });*/
 
-
 function downloadCSVClick(){
     var arrayOfData = getAllData();
-    clearData(arrayOfData);
+    clearData();
     downloadCSV('Enquiry', arrayOfData);
 }
 
@@ -241,13 +240,17 @@ function convertArrayOfObjectsToCSV(args) {
 
     function downloadCSV(name, stockData) {  
         try{
+            console.log(stockData);
             var data, filename, link;
+
             var csv = convertArrayOfObjectsToCSV({
                 data: stockData
             });
+            
+            console.log(csv);
             if(csv){
                 var config = {
-                  filename: 'TESTING',
+                  filename: name,
                   sheet: {
                     data: csv
                   }
@@ -277,3 +280,59 @@ function convertArrayOfObjectsToCSV(args) {
         }
     }
 
+    function openFileInput(){
+        $('#fileInput').trigger('click');
+        $('#falseInput').blur();
+        $('#falseInput').val('');
+
+    }
+
+    $('#fileInput').change(function(e){
+        var names = '';
+        for(var x = 0; x< e.target.files.length; x++){
+            names += e.target.files[x].name;
+            if(x != (e.target.files.length-1)){
+                names+=', '
+            }
+        }
+        $('#fileNum').empty();
+        $('#fileNum').append(e.target.files.length);        
+        $('#falseInput').val(names);
+    });
+
+    function merge(){
+        var fileInputFeild = $('#fileInput');
+        var files = fileInputFeild[0].files;
+        console.dir(files);
+        for(var x = 0; x< files.length; x++){
+            var output = readXlsx(files[x], x, files.length)
+        }
+    }
+
+    var arrayOfData = [];
+
+    function readXlsx(file, current, max){
+        console.dir(file);
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var data = e.target.result;
+            var cfb = XLSX.read(data, {type: 'binary'});
+            cfb.SheetNames.forEach(function(sheetName) {
+                var sCSV = XLS.utils.make_csv(cfb.Sheets[sheetName]);   
+                var oJS = XLS.utils.sheet_to_json(cfb.Sheets[sheetName]);   
+                $("#my_file_output").html(sCSV);
+                consolidateData(oJS, current, max)
+            });
+        };
+        reader.readAsBinaryString(file);
+    }
+
+    function consolidateData(oJS, current, max){
+        for(var index = 0; index<oJS.length; index++){
+            arrayOfData.push(oJS[index]);
+        }
+
+        if(current == (max-1)){
+            downloadCSV('merge', arrayOfData);
+        }
+    }
