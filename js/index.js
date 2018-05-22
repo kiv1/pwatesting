@@ -93,9 +93,12 @@ function validateForm(){
                 var selected = $(suggestName).magicSuggest().getValue();
                 
                 if(selected.length==0){
-                    errorText.append('Please fill up this field correctly!');
-                    errorText.show();
-                    isFormValid = false;
+                    //errorText.append('Please fill up this field correctly!');
+                    //errorText.show();
+                    //isFormValid = false;
+                    obj[$(this).data("name")] = 'Intrested but does not know what course';
+                    errorText.empty();
+                    errorText.hide(); 
                 }else{
                     obj[$(this).data("name")] = selected;
                     errorText.empty();
