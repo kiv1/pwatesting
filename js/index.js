@@ -7,6 +7,7 @@ var streamErrorText = $('.Stream-group .validation');
 
 function validateForm(){
     try {
+
         isFormValid = true;
         $('.personalEnquiry').each(function(){
             var inputElement = $(this).find('input');
@@ -37,11 +38,9 @@ function validateForm(){
                     }
                 } else if(elementName == 'Mobile'){
                     console.log("in")
-                    if((enteredText.charAt(0) != '+') || (enteredText.length < 11)){
-                        console.log(enteredText.charAt(0))
-                        console.log(enteredText.length)
+                    if(enteredText.length < 8){
                         $(errorText).empty();
-                        $(errorText).append('Please fill up this field correctly! E.g(+65XXXXXXXX) where XXXXXXXX is your number.');
+                        $(errorText).append('Please fill up this field correctly!');
                         $(errorText).show();
                         isFormValid = false;
                     }
@@ -85,29 +84,31 @@ function validateForm(){
         }
 
         $('input[type="checkbox"]').each(function() {
-            var divName = '#'+ $(this).data("name")+'_SuggestArea';
-            var suggestName = '#'+ $(this).data("name");
-            var errorText = $(divName +' .validation');
+            if(this.id!='termsCheckbox'){
+                var divName = '#'+ $(this).data("name")+'_SuggestArea';
+                var suggestName = '#'+ $(this).data("name");
+                var errorText = $(divName +' .validation');
 
-             if(this.checked) {
-                var selected = $(suggestName).magicSuggest().getValue();
-                
-                if(selected.length==0){
-                    //errorText.append('Please fill up this field correctly!');
-                    //errorText.show();
-                    //isFormValid = false;
-                    obj[$(this).data("name")] = 'Intrested but does not know what course';
-                    errorText.empty();
-                    errorText.hide(); 
-                }else{
-                    obj[$(this).data("name")] = selected;
+                 if(this.checked) {
+                    var selected = $(suggestName).magicSuggest().getValue();
+                    
+                    if(selected.length==0){
+                        //errorText.append('Please fill up this field correctly!');
+                        //errorText.show();
+                        //isFormValid = false;
+                        obj[$(this).data("name")] = 'Intrested but does not know what course';
+                        errorText.empty();
+                        errorText.hide(); 
+                    }else{
+                        obj[$(this).data("name")] = selected;
+                        errorText.empty();
+                        errorText.hide(); 
+                    }
+                 }else{
+                    obj[$(this).data("name")] = null;
                     errorText.empty();
                     errorText.hide(); 
                 }
-             }else{
-                obj[$(this).data("name")] = null;
-                errorText.empty();
-                errorText.hide(); 
             }
         });
 
@@ -118,13 +119,29 @@ function validateForm(){
             obj['Enquiry'] = enquiry.val();
         }
 
+
         if(isFormValid){
-            addData(obj);
-            clearAll();
-            toastr.success('Form has been submitted!');
+            var errorTermsText = $('#terms .validation');
+            var termsCheckbox = $('#termsCheckbox');
+
+            if(!termsCheckbox.prop('checked')){
+                errorTermsText.empty();
+                errorTermsText.append('Please agree to the terms and condition!')
+                errorTermsText.show();
+                toastr.error('Please agree to the terms and condition!');
+            }else{
+                errorTermsText.empty();
+                errorTermsText.hide();
+                errorTermsText.append('')
+                addData(obj);
+                clearAll();
+                toastr.success('Form has been submitted!');
+            }
+
         }else{
             toastr.error('There are some errors in the form!');
         }
+
     } catch (err) {
         toastr.error(err);
     }
@@ -136,7 +153,6 @@ function validateForm(){
 
 function downloadCSVClick(){
     var arrayOfData = getAllData();
-    clearData();
     downloadCSV('Enquiry', arrayOfData);
 }
 
@@ -147,7 +163,7 @@ function clearAll(){
     });
 
     $('#Enquiry').val('');
-
+    $('#terms .validation').empty();
     $('.validation').hide();
 
     $('#Level').magicSuggest().clear();
@@ -158,12 +174,15 @@ function clearAll(){
     $('#magicsuggest').magicSuggest().collapse();
     
     $('input[type="checkbox"]').each(function() {
-        this.checked = false;
-        var divName = '#'+ $(this).data("name")+'_SuggestArea';
-        var suggestName = '#'+ $(this).data("name");
-        $(suggestName).magicSuggest().clear();
-        $(divName).hide();
+            this.checked = false;
+        if(this.id!='termsCheckbox'){
+            var divName = '#'+ $(this).data("name")+'_SuggestArea';
+            var suggestName = '#'+ $(this).data("name");
+            $(suggestName).magicSuggest().clear();
+            $(divName).hide();
+        }
     });
+
 }
 
 function uuidv4() {
@@ -181,6 +200,8 @@ function addData(obj) {
 
 function clearData() {
     localStorage.clear();
+    toastr.success('Data all cleared!');
+
 }
 
 
@@ -278,6 +299,8 @@ function convertArrayOfObjectsToCSV(args) {
         if(t == u){
             $('body').empty();
             $('body').append('<button style="cursor: pointer;" onclick="downloadCSVClick();" id="generate" type="button" class="bouton-contact">Generate</button>');
+            $('body').append('<br/><button style="cursor: pointer;" onclick="clearData();" id="clear" type="button" class="bouton-contact">Clear Data</button>');
+
         }else{
             toastr.error('Fail!');
         }

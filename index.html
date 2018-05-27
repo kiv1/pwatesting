@@ -89,7 +89,7 @@
 			</div>
 			<div id="Architecture_SuggestArea" style="display:none;">
 				<div class="validation"></div>				
-				<p>Course <span>*</span></p>
+				<p>Course</p>
 				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
 				<input id="Architecture"/>
 			</div>
@@ -100,7 +100,7 @@
 			</div>
 			<div id="Business_SuggestArea" style="display:none;">
 				<div class="validation"></div>
-				<p>Course <span>*</span></p>
+				<p>Course</p>
 				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
 				<input id="Business"/>
 			</div>
@@ -111,7 +111,7 @@
 			</div>
 			<div id="Chemical_SuggestArea" style="display:none;">
 				<div class="validation"></div>				
-				<p>Course <span>*</span></p>
+				<p>Course</p>
 				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
 				<input id="Chemical"/>
 			</div>
@@ -122,7 +122,7 @@
 			</div>
 			<div id="Communication_SuggestArea" style="display:none;">
 				<div class="validation"></div>				
-				<p>Course <span>*</span></p>
+				<p>Course</p>
 				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
 				<input id="Communication"/>
 			</div>
@@ -133,7 +133,7 @@
 			</div>
 			<div id="Design_SuggestArea" style="display:none;">
 				<div class="validation"></div>				
-				<p>Course <span>*</span></p>
+				<p>Course</p>
 				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
 				<input id="Design"/>
 			</div>
@@ -144,7 +144,7 @@
 			</div>
 			<div id="Technology_SuggestArea" style="display:none;">
 				<div class="validation"></div>				
-				<p>Course <span>*</span></p>
+				<p>Course</p>
 				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
 				<input id="Technology"/>
 			</div>
@@ -155,7 +155,7 @@
 			</div>	
 			<div id="Engineering_SuggestArea" style="display:none;">
 				<div class="validation"></div>				
-				<p>Course <span>*</span></p>
+				<p>Course</p>
 				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
 				<input id="Engineering"/>
 			</div>
@@ -167,7 +167,7 @@
 
 			<div id="Maritime_SuggestArea" style="display:none;">
 				<div class="validation"></div>				
-				<p>Course <span>*</span></p>
+				<p>Course</p>
 				<span class="icon-case"><i class="fa fa-graduation-cap"></i></span>
 				<input id="Maritime"/>
 				<br/>
@@ -186,7 +186,11 @@
 	</div>
 
 	</div>
-
+	<div id="terms">
+		<div style="width:97%; float:right; text-align:left;" class="validation"></div>				
+		<p style="width:97%; float:right; text-align:left;"><input style="transform: scale(1.4); margin-right:5px;" id="termsCheckbox" type="checkbox"><span>*</span>By completing this survey form, you agree that Singapore Polytechnic (SP) may collect and use your personal data as provided in this form for the purpose of providing information, updates and agree to be on SP’s mailing list. This data will be kept strictly confidential and will not be disclosed to any third party.
+		</p>
+	</div>	
 	<button style="cursor: pointer;" onclick="validateForm();" id="submit" type="button" class="bouton-contact">Send</button>
 	<!--<button style="cursor: pointer;" onclick="downloadCSVClick();" id="generate" type="button" class="bouton-contact">Generate</button>-->
 </form>	
@@ -221,15 +225,17 @@
 	function run(){
 
 		$('input[type="checkbox"]').change(function() {
-		     var divName = '#'+ $(this).data("name")+'_SuggestArea';
-		     var suggestName = '#'+ $(this).data("name");
+	        if(this.id!='termsCheckbox'){
+			     var divName = '#'+ $(this).data("name")+'_SuggestArea';
+			     var suggestName = '#'+ $(this).data("name");
 
-		     if(this.checked) {
-		     	$(suggestName).magicSuggest().clear();
-		     	$(divName).show();
-		     }else{
-		     	$(divName).hide();
-		     }
+			     if(this.checked) {
+			     	$(suggestName).magicSuggest().clear();
+			     	$(divName).show();
+			     }else{
+			     	$(divName).hide();
+			     }
+		 	}
 		 });
 
 	 	var ms = $('#magicsuggest').magicSuggest({    
