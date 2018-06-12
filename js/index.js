@@ -47,7 +47,9 @@ function validateForm(){
                 }
             }
         });
-
+        
+        obj['Instagram'] = $('#Instagram').val();
+ 
         if(!$('#magicsuggest').magicSuggest().isValid()){
             $(schoolErrorText).empty();
             $(schoolErrorText).append('Please fill up this field correctly!');
